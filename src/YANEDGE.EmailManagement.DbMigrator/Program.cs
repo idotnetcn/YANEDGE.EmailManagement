@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Volo.Abp;
+using Volo.Abp.Modularity;
 
 namespace YANEDGE.EmailManagement.DbMigrator;
 
@@ -21,7 +23,7 @@ class Program
             .WriteTo.Async(c => c.File("Logs/migrations.txt"))
             .CreateLogger();
 
-        await CreateHostBuilder(args).RunConsoleAsync();
+        await CreateHostBuilder(args).Build().RunAsync();
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -1,0 +1,16 @@
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/bin/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.deps.json
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/bin/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/bin/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.pdb
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/bin/Debug/net10.0/YANEDGE.EmailManagement.Domain.Shared.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/bin/Debug/net10.0/YANEDGE.EmailManagement.Domain.Shared.pdb
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.csproj.AssemblyReference.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.AssemblyInfoInputs.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.AssemblyInfo.cs
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.csproj.CoreCompileInputs.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.sourcelink.json
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE..F3DBCD41.Up2Date
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/refint/YANEDGE.EmailManagement.Application.Contracts.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Contracts.pdb
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application.Contracts/obj/Debug/net10.0/ref/YANEDGE.EmailManagement.Application.Contracts.dll

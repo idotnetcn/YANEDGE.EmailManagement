@@ -28,8 +28,6 @@ public class EmailManagementEntityFrameworkCoreModule : AbpModule
         context.Services.AddAbpDbContext<EmailManagementDbContext>(options =>
         {
             options.AddDefaultRepositories(includeAllEntities: true);
-            options.AddRepository<Emails.Email, EntityFrameworkCore.Emails.EfCoreEmailRepository>();
-            options.AddRepository<Emails.EmailTemplate, EntityFrameworkCore.Emails.EfCoreEmailTemplateRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

@@ -1,0 +1,6 @@
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.DbMigrator/obj/Debug/net10.0/YANEDGE.EmailManagement.DbMigrator.csproj.AssemblyReference.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.DbMigrator/obj/Debug/net10.0/YANEDGE.EmailManagement.DbMigrator.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.DbMigrator/obj/Debug/net10.0/YANEDGE.EmailManagement.DbMigrator.AssemblyInfoInputs.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.DbMigrator/obj/Debug/net10.0/YANEDGE.EmailManagement.DbMigrator.AssemblyInfo.cs
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.DbMigrator/obj/Debug/net10.0/YANEDGE.EmailManagement.DbMigrator.csproj.CoreCompileInputs.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.DbMigrator/obj/Debug/net10.0/YANEDGE.EmailManagement.DbMigrator.sourcelink.json

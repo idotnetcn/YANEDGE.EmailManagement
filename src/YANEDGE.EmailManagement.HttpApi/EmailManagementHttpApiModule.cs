@@ -21,7 +21,8 @@ public class EmailManagementHttpApiModule : AbpModule
     {
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
-            options.ConventionalControllers.Create(typeof(EmailManagementApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(EmailManagementApplicationContractsModule).Assembly);
         });
     }
 }
+

@@ -7,7 +7,6 @@ using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using YANEDGE.EmailManagement.Emails;
 
 namespace YANEDGE.EmailManagement.EntityFrameworkCore;
 
@@ -16,10 +15,6 @@ public class EmailManagementDbContext : AbpDbContext<EmailManagementDbContext>,
     IIdentityDbContext,
     ITenantManagementDbContext
 {
-    public DbSet<Email> Emails { get; set; }
-    public DbSet<EmailRecipient> EmailRecipients { get; set; }
-    public DbSet<EmailAttachment> EmailAttachments { get; set; }
-    public DbSet<EmailTemplate> EmailTemplates { get; set; }
 
     // Identity
     public DbSet<Volo.Abp.Identity.IdentityUser> Users { get; set; }
