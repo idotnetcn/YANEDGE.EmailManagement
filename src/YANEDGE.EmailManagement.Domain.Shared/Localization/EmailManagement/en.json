@@ -1,0 +1,11 @@
+{
+  "culture": "en",
+  "texts": {
+    "EmailManagement": "Email Management",
+    "MailAccounts": "Mail Accounts",
+    "MailMessages": "Mail Messages",
+    "MailTemplates": "Mail Templates",
+    "MailRules": "Mail Rules",
+    "Contacts": "Contacts"
+  }
+}

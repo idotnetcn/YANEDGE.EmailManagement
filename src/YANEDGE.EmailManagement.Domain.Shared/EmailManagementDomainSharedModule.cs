@@ -1,14 +1,12 @@
 using Volo.Abp.Modularity;
 using Volo.Abp.Localization;
-using Volo.Abp.Validation;
-using YANEDGE.EmailManagement.Localization;
+using Volo.Abp.Localization.ExceptionHandling;
+using Volo.Abp.Validation.Localization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace YANEDGE.EmailManagement;
 
-[DependsOn(
-    typeof(AbpLocalizationAbstractionsModule),
-    typeof(AbpValidationModule)
-)]
+[DependsOn(typeof(AbpLocalizationModule))]
 public class EmailManagementDomainSharedModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -17,7 +15,13 @@ public class EmailManagementDomainSharedModule : AbpModule
         {
             options.Resources
                 .Add<EmailManagementResource>("en")
-                .AddBaseTypes(typeof(AbpValidationResource));
+                .AddBaseTypes(typeof(AbpValidationResource))
+                .AddVirtualJson("/Localization/EmailManagement");
+        });
+
+        Configure<AbpExceptionLocalizationOptions>(options =>
+        {
+            options.MapCodeNamespace("EmailManagement", typeof(EmailManagementResource));
         });
     }
 }

@@ -1,0 +1,11 @@
+{
+  "culture": "zh-Hans",
+  "texts": {
+    "EmailManagement": "邮件管理",
+    "MailAccounts": "邮箱账号",
+    "MailMessages": "邮件",
+    "MailTemplates": "邮件模板",
+    "MailRules": "邮件规则",
+    "Contacts": "联系人"
+  }
+}
