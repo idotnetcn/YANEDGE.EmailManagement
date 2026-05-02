@@ -91,7 +91,7 @@ public class MailTemplateAppService : ApplicationService, IMailTemplateAppServic
             input.Name,
             input.SubjectTemplate,
             input.BodyTemplate,
-            input.Language,
+            input.Language ?? "zh-CN",
             input.Category,
             input.RequiresApproval,
             input.Description

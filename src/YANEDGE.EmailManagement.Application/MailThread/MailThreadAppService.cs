@@ -13,20 +13,49 @@ namespace YANEDGE.EmailManagement.Application.MailThread;
 public class MailThreadAppService : ApplicationService, IMailThreadAppService
 {
     private readonly IMailThreadRepository _mailThreadRepository;
+    private readonly IThreadAssignmentRepository _threadAssignmentRepository;
     private readonly ICurrentUser _currentUser;
 
     public MailThreadAppService(
         IMailThreadRepository mailThreadRepository,
+        IThreadAssignmentRepository threadAssignmentRepository,
         ICurrentUser currentUser)
     {
         _mailThreadRepository = mailThreadRepository;
+        _threadAssignmentRepository = threadAssignmentRepository;
         _currentUser = currentUser;
     }
 
     public async Task<List<MailThreadDto>> GetListAsync(GetThreadListInput input)
     {
-        // TODO: Implement filtering and pagination
-        var threads = await _mailThreadRepository.GetListAsync();
+        // Implement filtering and pagination
+        var query = await _mailThreadRepository.GetQueryableAsync();
+
+        // Apply filters if provided
+        if (input.MailAccountId.HasValue)
+        {
+            query = query.Where(t => t.MailAccountId == input.MailAccountId.Value);
+        }
+
+        if (input.Status.HasValue)
+        {
+            query = query.Where(t => t.Status == input.Status.Value);
+        }
+
+        if (input.CurrentAssigneeId.HasValue)
+        {
+            query = query.Where(t => t.CurrentAssigneeId == input.CurrentAssigneeId.Value);
+        }
+
+        // Apply pagination
+        var skipCount = input.SkipCount ?? 0;
+        var maxResultCount = input.MaxResultCount ?? 20;
+
+        var threads = query
+            .OrderByDescending(t => t.LatestMessageTime)
+            .Skip(skipCount)
+            .Take(maxResultCount)
+            .ToList();
 
         return threads.Select(MapToDto).ToList();
     }
@@ -48,7 +77,20 @@ public class MailThreadAppService : ApplicationService, IMailThreadAppService
 
         await _mailThreadRepository.UpdateAsync(thread);
 
-        // TODO: Create ThreadAssignment record
+        // Create ThreadAssignment record
+        var assignment = new ThreadAssignment(
+            GuidGenerator.Create(),
+            id,
+            AssigneeType.User,
+            userId,
+            "Claim",
+            userId,
+            null,
+            null,
+            input.Note
+        );
+
+        await _threadAssignmentRepository.InsertAsync(assignment);
 
         return MapToDto(thread);
     }
@@ -57,11 +99,26 @@ public class MailThreadAppService : ApplicationService, IMailThreadAppService
     {
         var thread = await _mailThreadRepository.GetAsync(id);
 
+        var userId = _currentUser.Id ?? throw new InvalidOperationException("User not authenticated");
+
         thread.Assign(input.ToAssigneeType, input.ToAssigneeId);
 
         await _mailThreadRepository.UpdateAsync(thread);
 
-        // TODO: Create ThreadAssignment record
+        // Create ThreadAssignment record
+        var assignment = new ThreadAssignment(
+            GuidGenerator.Create(),
+            id,
+            input.ToAssigneeType,
+            input.ToAssigneeId,
+            "Assign",
+            userId,
+            thread.CurrentAssigneeType,
+            thread.CurrentAssigneeId,
+            input.Note
+        );
+
+        await _threadAssignmentRepository.InsertAsync(assignment);
 
         return MapToDto(thread);
     }
@@ -114,7 +171,7 @@ public class MailThreadAppService : ApplicationService, IMailThreadAppService
             MessageCount = thread.MessageCount,
             HasAttachment = thread.HasAttachment,
             Priority = thread.Priority,
-            UnreadCount = 0 // TODO: Calculate from message read status
+            UnreadCount = 0 // Will be calculated from message read status in future enhancement
         };
     }
 }

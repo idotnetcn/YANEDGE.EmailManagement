@@ -1,4 +1,5 @@
 using Volo.Abp.Application.Services;
+using YANEDGE.EmailManagement.Enums;
 
 namespace YANEDGE.EmailManagement.Application.Contracts.MailCompose;
 
@@ -46,8 +47,11 @@ public interface IMailComposeAppService : IApplicationService
 public class GetSendTaskListInput
 {
     public Guid? MailAccountId { get; set; }
-    public int? Status { get; set; }
+    public SendTaskStatus? Status { get; set; }
+    public Guid? CreatedByUserId { get; set; }
     public bool? NeedApproval { get; set; }
+    public int? SkipCount { get; set; }
+    public int? MaxResultCount { get; set; }
     public int PageNo { get; set; } = 1;
     public int PageSize { get; set; } = 20;
 }
