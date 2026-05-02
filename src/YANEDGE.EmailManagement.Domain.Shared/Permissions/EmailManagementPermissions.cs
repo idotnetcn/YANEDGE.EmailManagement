@@ -40,19 +40,52 @@ public static class EmailManagementPermissions
     public static class Attachments
     {
         public const string Default = GroupName + ".Attachments";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
         public const string Download = Default + ".Download";
     }
 
     public static class Rules
     {
         public const string Default = GroupName + ".Rules";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
         public const string Manage = Default + ".Manage";
     }
 
     public static class Templates
     {
         public const string Default = GroupName + ".Templates";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
         public const string Manage = Default + ".Manage";
+    }
+
+    public static class Labels
+    {
+        public const string Default = GroupName + ".Labels";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class Contacts
+    {
+        public const string Default = GroupName + ".Contacts";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class BusinessRelations
+    {
+        public const string Default = GroupName + ".BusinessRelations";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
     }
 
     public static class Integration
