@@ -1,6 +1,42 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using Serilog;
+using Serilog.Events;
+using YANEDGE.EmailManagement;
 
-app.MapGet("/", () => "Hello World!");
+Log.Logger = new LoggerConfiguration()
+#if DEBUG
+    .MinimumLevel.Debug()
+#else
+    .MinimumLevel.Information()
+#endif
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.Console()
+    .CreateLogger();
 
-app.Run();
+try
+{
+    Log.Information("Starting YANEDGE.EmailManagement.HttpApi.Host");
+
+    var builder = WebApplication.CreateBuilder(args);
+    builder.Host.AddAppSettingsSecretsJson()
+        .UseAutofac()
+        .UseSerilog();
+
+    await builder.AddApplicationAsync<EmailManagementHttpApiHostModule>();
+    var app = builder.Build();
+    await app.InitializeApplicationAsync();
+    await app.RunAsync();
+
+    return 0;
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly!");
+    return 1;
+}
+finally
+{
+    await Log.CloseAndFlushAsync();
+}

@@ -91,13 +91,11 @@ public class MailTemplateAppService : ApplicationService, IMailTemplateAppServic
             input.Name,
             input.SubjectTemplate,
             input.BodyTemplate,
+            input.Language,
             input.Category,
-            input.Language
+            input.RequiresApproval,
+            input.Description
         );
-
-        template.SetDescription(input.Description);
-        template.SetPlainTextTemplate(input.PlainTextTemplate);
-        template.SetRequiresApproval(input.RequiresApproval);
 
         if (input.IsDefault)
         {
@@ -119,12 +117,9 @@ public class MailTemplateAppService : ApplicationService, IMailTemplateAppServic
             input.SubjectTemplate,
             input.BodyTemplate,
             input.Category,
-            input.Language,
-            input.Description,
-            input.PlainTextTemplate
+            input.PlainTextTemplate,
+            input.Description
         );
-
-        template.SetRequiresApproval(input.RequiresApproval);
 
         await _templateRepository.UpdateAsync(template);
 

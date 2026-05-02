@@ -87,10 +87,9 @@ public class MailSignatureAppService : ApplicationService, IMailSignatureAppServ
             input.Content,
             input.Scope,
             input.OwnerUserId,
-            input.OwnerOrganizationId
+            input.OwnerOrganizationId,
+            input.PlainTextContent
         );
-
-        signature.SetPlainTextContent(input.PlainTextContent);
 
         if (input.IsDefault)
         {
