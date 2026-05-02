@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/YANEDGE.EmailManagement.Application.Contracts/YANEDGE.EmailManagement.Application.Contracts.csproj" />
+    <Project Path="src/YANEDGE.EmailManagement.Application/YANEDGE.EmailManagement.Application.csproj" />
+    <Project Path="src/YANEDGE.EmailManagement.Domain.Shared/YANEDGE.EmailManagement.Domain.Shared.csproj" />
+    <Project Path="src/YANEDGE.EmailManagement.Domain/YANEDGE.EmailManagement.Domain.csproj" />
+    <Project Path="src/YANEDGE.EmailManagement.EntityFrameworkCore/YANEDGE.EmailManagement.EntityFrameworkCore.csproj" />
+    <Project Path="src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj" />
+    <Project Path="src/YANEDGE.EmailManagement.HttpApi/YANEDGE.EmailManagement.HttpApi.csproj" />
+  </Folder>
+</Solution>
