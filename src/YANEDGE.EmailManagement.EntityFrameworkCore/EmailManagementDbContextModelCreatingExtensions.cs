@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using YANEDGE.EmailManagement.Domain.MailAccount;
@@ -175,11 +176,11 @@ public static class EmailManagementDbContextModelCreatingExtensions
         builder.Entity<MailMessageLabel>(b =>
         {
             b.ToTable("MailMessageLabels");
+            b.HasKey(x => new { x.MailMessageId, x.LabelId });
             b.ConfigureByConvention();
 
             b.HasIndex(x => x.MailMessageId);
             b.HasIndex(x => x.LabelId);
-            b.HasIndex(x => new { x.MailMessageId, x.LabelId }).IsUnique();
         });
 
         // Rule Management
@@ -190,9 +191,27 @@ public static class EmailManagementDbContextModelCreatingExtensions
 
             b.Property(x => x.Name).IsRequired().HasMaxLength(200);
             b.Property(x => x.Description).HasMaxLength(1000);
-            b.Property(x => x.ApplicableMailAccountIds);
-            b.Property(x => x.Conditions).IsRequired();
-            b.Property(x => x.Actions).IsRequired();
+
+            // 配置复杂类型为JSON
+            b.Property(x => x.ApplicableMailAccountIds)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<Guid>>(v, (JsonSerializerOptions)null) ?? new List<Guid>())
+                .HasColumnType("jsonb");
+
+            b.Property(x => x.Conditions)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<RuleCondition>>(v, (JsonSerializerOptions)null) ?? new List<RuleCondition>())
+                .HasColumnType("jsonb")
+                .IsRequired();
+
+            b.Property(x => x.Actions)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<RuleAction>>(v, (JsonSerializerOptions)null) ?? new List<RuleAction>())
+                .HasColumnType("jsonb")
+                .IsRequired();
 
             b.HasIndex(x => x.IsActive);
             b.HasIndex(x => x.Priority);
