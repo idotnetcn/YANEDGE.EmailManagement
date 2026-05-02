@@ -18,6 +18,16 @@ public class CreateSendTaskInput
     public List<RecipientInput> Recipients { get; set; } = new();
     public List<Guid> AttachmentIds { get; set; } = new();
     public string? ExternalBizRef { get; set; }
+
+    /// <summary>
+    /// 是否需要审批
+    /// </summary>
+    public bool RequireApproval { get; set; }
+
+    /// <summary>
+    /// 附件数量(用于审批策略判断)
+    /// </summary>
+    public int AttachmentCount => AttachmentIds?.Count ?? 0;
 }
 
 public class RecipientInput

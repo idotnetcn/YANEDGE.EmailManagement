@@ -1,6 +1,7 @@
 using Volo.Abp.Application.Services;
 using YANEDGE.EmailManagement.Application.Contracts.MailAccount;
 using YANEDGE.EmailManagement.Domain.MailAccount;
+using YANEDGE.EmailManagement.Domain.Services;
 
 namespace YANEDGE.EmailManagement.Application.MailAccount;
 
@@ -10,10 +11,20 @@ namespace YANEDGE.EmailManagement.Application.MailAccount;
 public class MailAccountAppService : ApplicationService, IMailAccountAppService
 {
     private readonly IMailAccountRepository _mailAccountRepository;
+    private readonly IPasswordEncryptionService _passwordEncryptionService;
+    private readonly IMailConnectionTestService _connectionTestService;
+    private readonly IMailSyncService _mailSyncService;
 
-    public MailAccountAppService(IMailAccountRepository mailAccountRepository)
+    public MailAccountAppService(
+        IMailAccountRepository mailAccountRepository,
+        IPasswordEncryptionService passwordEncryptionService,
+        IMailConnectionTestService connectionTestService,
+        IMailSyncService mailSyncService)
     {
         _mailAccountRepository = mailAccountRepository;
+        _passwordEncryptionService = passwordEncryptionService;
+        _connectionTestService = connectionTestService;
+        _mailSyncService = mailSyncService;
     }
 
     public async Task<List<MailAccountDto>> GetListAsync()
@@ -32,8 +43,8 @@ public class MailAccountAppService : ApplicationService, IMailAccountAppService
 
     public async Task<MailAccountDto> CreateAsync(CreateMailAccountInput input)
     {
-        // TODO: Encrypt password before saving
-        var encryptedPassword = input.Password; // Should use encryption service
+        // Encrypt password before saving
+        var encryptedPassword = _passwordEncryptionService.Encrypt(input.Password);
 
         var account = new Domain.MailAccount.MailAccount(
             GuidGenerator.Create(),
@@ -79,27 +90,27 @@ public class MailAccountAppService : ApplicationService, IMailAccountAppService
 
     public async Task<TestConnectionResult> TestConnectionAsync(Guid id)
     {
-        // TODO: Implement actual connection test
-        await Task.CompletedTask;
+        var account = await _mailAccountRepository.GetAsync(id);
+
+        var result = await _connectionTestService.TestConnectionAsync(account);
 
         return new TestConnectionResult
         {
-            IncomingSuccess = true,
-            OutgoingSuccess = true,
-            Detail = "Connection test passed (mock implementation)"
+            IncomingSuccess = result.IncomingSuccess,
+            OutgoingSuccess = result.OutgoingSuccess,
+            Detail = result.Detail ?? (result.IsSuccess ? "Connection test passed" : "Connection test failed")
         };
     }
 
     public async Task<SyncJobResult> TriggerSyncAsync(Guid id)
     {
-        // TODO: Implement actual sync trigger
-        await Task.CompletedTask;
+        var result = await _mailSyncService.TriggerSyncAsync(id);
 
         return new SyncJobResult
         {
-            JobId = Guid.NewGuid(),
-            Accepted = true,
-            Message = "Sync job triggered (mock implementation)"
+            JobId = result.JobId,
+            Accepted = result.Accepted,
+            Message = result.Message ?? "Sync job triggered successfully"
         };
     }
 

@@ -48,8 +48,11 @@ public class GetThreadListInput
 {
     public Guid? MailAccountId { get; set; }
     public ThreadStatus? Status { get; set; }
+    public Guid? CurrentAssigneeId { get; set; }
     public Guid? AssigneeId { get; set; }
     public string? Keyword { get; set; }
+    public int? SkipCount { get; set; }
+    public int? MaxResultCount { get; set; }
     public int PageNo { get; set; } = 1;
     public int PageSize { get; set; } = 20;
 }
@@ -57,6 +60,7 @@ public class GetThreadListInput
 public class ClaimThreadInput
 {
     public string? Reason { get; set; }
+    public string? Note { get; set; }
 }
 
 public class AssignThreadInput
@@ -64,6 +68,7 @@ public class AssignThreadInput
     public AssigneeType ToAssigneeType { get; set; }
     public Guid ToAssigneeId { get; set; }
     public string? Reason { get; set; }
+    public string? Note { get; set; }
 }
 
 public class ArchiveThreadInput
