@@ -7,12 +7,12 @@ using YANEDGE.EmailManagement.Domain.MailThread;
 using YANEDGE.EmailManagement.Domain.MailCompose;
 using YANEDGE.EmailManagement.Domain.Approval;
 using YANEDGE.EmailManagement.Domain.Collaboration;
-using YANEDGE.EmailManagement.Template;
-using YANEDGE.EmailManagement.Label;
-using YANEDGE.EmailManagement.Rule;
-using YANEDGE.EmailManagement.Attachment;
-using YANEDGE.EmailManagement.Contact;
-using YANEDGE.EmailManagement.BusinessRelation;
+using YANEDGE.EmailManagement.Domain.Template;
+using YANEDGE.EmailManagement.Domain.Label;
+using YANEDGE.EmailManagement.Domain.Rule;
+using YANEDGE.EmailManagement.Domain.Attachment;
+using YANEDGE.EmailManagement.Domain.Contact;
+using YANEDGE.EmailManagement.Domain.BusinessRelation;
 
 namespace YANEDGE.EmailManagement.EntityFrameworkCore;
 

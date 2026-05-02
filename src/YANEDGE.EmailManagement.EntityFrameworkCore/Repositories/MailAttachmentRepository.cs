@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
-using YANEDGE.EmailManagement.Attachment;
+using YANEDGE.EmailManagement.Domain.Attachment;
 
 namespace YANEDGE.EmailManagement.EntityFrameworkCore.Repositories;
 
