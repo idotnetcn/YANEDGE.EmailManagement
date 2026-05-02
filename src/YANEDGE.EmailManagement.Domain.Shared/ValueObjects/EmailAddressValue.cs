@@ -1,4 +1,3 @@
-using Volo.Abp.Domain.Values;
 using YANEDGE.EmailManagement.Constants;
 
 namespace YANEDGE.EmailManagement.Domain.Shared.ValueObjects;
@@ -6,22 +5,22 @@ namespace YANEDGE.EmailManagement.Domain.Shared.ValueObjects;
 /// <summary>
 /// 邮箱地址值对象
 /// </summary>
-public class EmailAddressValue : ValueObject
+public sealed record EmailAddressValue
 {
     /// <summary>
     /// 原始邮箱地址
     /// </summary>
-    public string Address { get; private set; }
+    public string Address { get; private init; }
 
     /// <summary>
     /// 标准化邮箱地址(小写)
     /// </summary>
-    public string NormalizedAddress { get; private set; }
+    public string NormalizedAddress { get; private init; }
 
     /// <summary>
     /// 显示名
     /// </summary>
-    public string? DisplayName { get; private set; }
+    public string? DisplayName { get; private init; }
 
     private EmailAddressValue()
     {
@@ -65,8 +64,5 @@ public class EmailAddressValue : ValueObject
         }
     }
 
-    protected override IEnumerable<object> GetAtomicValues()
-    {
-        yield return NormalizedAddress;
-    }
+    // Equality comparison is handled by record type automatically
 }

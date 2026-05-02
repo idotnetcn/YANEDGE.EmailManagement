@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace YANEDGE.EmailManagement.Contact;
+namespace YANEDGE.EmailManagement.Domain.Contact;
 
 /// <summary>
 /// 联系人仓储接口

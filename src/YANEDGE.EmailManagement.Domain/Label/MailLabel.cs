@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace YANEDGE.EmailManagement.Label;
+namespace YANEDGE.EmailManagement.Domain.Label;
 
 /// <summary>
 /// 邮件标签聚合根

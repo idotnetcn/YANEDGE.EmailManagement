@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Volo.Abp.Domain.Entities.Auditing;
 using YANEDGE.EmailManagement.Enums;
 
-namespace YANEDGE.EmailManagement.Rule;
+namespace YANEDGE.EmailManagement.Domain.Rule;
 
 /// <summary>
 /// 邮件规则聚合根

@@ -7,7 +7,6 @@ using YANEDGE.EmailManagement.Domain.MailCompose;
 using YANEDGE.EmailManagement.Domain.Approval;
 using YANEDGE.EmailManagement.Domain.Collaboration;
 using YANEDGE.EmailManagement.Domain.Template;
-using YANEDGE.EmailManagement.Domain.Signature;
 using YANEDGE.EmailManagement.Domain.Label;
 using YANEDGE.EmailManagement.Domain.Rule;
 using YANEDGE.EmailManagement.Domain.Attachment;

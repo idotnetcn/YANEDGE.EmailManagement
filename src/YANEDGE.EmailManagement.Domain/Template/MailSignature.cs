@@ -2,7 +2,7 @@ using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using YANEDGE.EmailManagement.Enums;
 
-namespace YANEDGE.EmailManagement.Template;
+namespace YANEDGE.EmailManagement.Domain.Template;
 
 /// <summary>
 /// 邮件签名聚合根

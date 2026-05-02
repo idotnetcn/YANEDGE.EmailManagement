@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace YANEDGE.EmailManagement.Attachment;
+namespace YANEDGE.EmailManagement.Domain.Attachment;
 
 /// <summary>
 /// 邮件附件聚合根

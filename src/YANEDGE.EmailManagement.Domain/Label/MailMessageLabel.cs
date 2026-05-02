@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Entities;
 
-namespace YANEDGE.EmailManagement.Label;
+namespace YANEDGE.EmailManagement.Domain.Label;
 
 /// <summary>
 /// 邮件-标签关联实体
