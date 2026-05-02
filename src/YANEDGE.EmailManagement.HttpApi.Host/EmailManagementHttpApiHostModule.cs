@@ -42,7 +42,6 @@ public class EmailManagementHttpApiHostModule : AbpModule
                             .Select(o => o.Trim().TrimEnd('/'))
                             .ToArray() ?? Array.Empty<string>()
                     )
-                    .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyHeader()
                     .AllowAnyMethod()

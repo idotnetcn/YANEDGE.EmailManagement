@@ -209,7 +209,7 @@ public static class EmailManagementDbContextModelCreatingExtensions
             b.HasIndex(x => x.RuleId);
             b.HasIndex(x => x.MailMessageId);
             b.HasIndex(x => x.ThreadId);
-            b.HasIndex(x => x.ExecutedAt);
+            b.HasIndex(x => x.CreationTime);
         });
 
         // Attachment Management
@@ -243,7 +243,7 @@ public static class EmailManagementDbContextModelCreatingExtensions
 
             b.HasIndex(x => x.AttachmentId);
             b.HasIndex(x => x.UserId);
-            b.HasIndex(x => x.AccessTime);
+            b.HasIndex(x => x.CreationTime);
         });
 
         // Contact Management
@@ -259,7 +259,7 @@ public static class EmailManagementDbContextModelCreatingExtensions
             b.Property(x => x.JobTitle).HasMaxLength(100);
             b.Property(x => x.Source).HasMaxLength(50);
             b.Property(x => x.ExternalId).HasMaxLength(200);
-            b.Property(x => x.Remarks).HasMaxLength(1000);
+            b.Property(x => x.Notes).HasMaxLength(1000);
 
             b.HasIndex(x => x.EmailAddress);
             b.HasIndex(x => x.CustomerId);
