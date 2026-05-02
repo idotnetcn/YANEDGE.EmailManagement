@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace YANEDGE.EmailManagement.Attachment;
+namespace YANEDGE.EmailManagement.Domain.Attachment;
 
 /// <summary>
 /// 邮件附件仓储接口

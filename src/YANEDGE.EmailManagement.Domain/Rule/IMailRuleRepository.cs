@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace YANEDGE.EmailManagement.Rule;
+namespace YANEDGE.EmailManagement.Domain.Rule;
 
 /// <summary>
 /// 邮件规则仓储接口

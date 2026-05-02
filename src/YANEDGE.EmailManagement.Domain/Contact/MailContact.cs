@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace YANEDGE.EmailManagement.Contact;
+namespace YANEDGE.EmailManagement.Domain.Contact;
 
 /// <summary>
 /// 联系人聚合根

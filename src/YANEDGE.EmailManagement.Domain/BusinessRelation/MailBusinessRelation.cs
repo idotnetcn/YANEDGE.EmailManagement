@@ -2,7 +2,7 @@ using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using YANEDGE.EmailManagement.Enums;
 
-namespace YANEDGE.EmailManagement.BusinessRelation;
+namespace YANEDGE.EmailManagement.Domain.BusinessRelation;
 
 /// <summary>
 /// 邮件业务对象关联实体

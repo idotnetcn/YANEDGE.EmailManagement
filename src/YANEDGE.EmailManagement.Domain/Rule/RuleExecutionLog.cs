@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace YANEDGE.EmailManagement.Rule;
+namespace YANEDGE.EmailManagement.Domain.Rule;
 
 /// <summary>
 /// 规则执行日志实体

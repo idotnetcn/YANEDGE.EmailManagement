@@ -13,12 +13,12 @@ namespace YANEDGE.EmailManagement.Application.Signature;
 [Authorize(EmailManagementPermissions.Templates.Default)]
 public class MailSignatureAppService : ApplicationService, IMailSignatureAppService
 {
-    private readonly IRepository<Domain.Signature.MailSignature, Guid> _signatureRepository;
-    private readonly Domain.Signature.IMailSignatureRepository _mailSignatureRepository;
+    private readonly IRepository<Domain.Template.MailSignature, Guid> _signatureRepository;
+    private readonly Domain.Template.IMailSignatureRepository _mailSignatureRepository;
 
     public MailSignatureAppService(
-        IRepository<Domain.Signature.MailSignature, Guid> signatureRepository,
-        Domain.Signature.IMailSignatureRepository mailSignatureRepository)
+        IRepository<Domain.Template.MailSignature, Guid> signatureRepository,
+        Domain.Template.IMailSignatureRepository mailSignatureRepository)
     {
         _signatureRepository = signatureRepository;
         _mailSignatureRepository = mailSignatureRepository;
@@ -58,14 +58,14 @@ public class MailSignatureAppService : ApplicationService, IMailSignatureAppServ
 
         return new PagedResultDto<MailSignatureDto>(
             totalCount,
-            ObjectMapper.Map<System.Collections.Generic.List<Domain.Signature.MailSignature>, System.Collections.Generic.List<MailSignatureDto>>(items)
+            ObjectMapper.Map<System.Collections.Generic.List<Domain.Template.MailSignature>, System.Collections.Generic.List<MailSignatureDto>>(items)
         );
     }
 
     public async Task<MailSignatureDto> GetAsync(Guid id)
     {
         var signature = await _signatureRepository.GetAsync(id);
-        return ObjectMapper.Map<Domain.Signature.MailSignature, MailSignatureDto>(signature);
+        return ObjectMapper.Map<Domain.Template.MailSignature, MailSignatureDto>(signature);
     }
 
     public async Task<MailSignatureDto?> GetDefaultByUserIdAsync(Guid userId)
@@ -75,13 +75,13 @@ public class MailSignatureAppService : ApplicationService, IMailSignatureAppServ
         {
             return null;
         }
-        return ObjectMapper.Map<Domain.Signature.MailSignature, MailSignatureDto>(signature);
+        return ObjectMapper.Map<Domain.Template.MailSignature, MailSignatureDto>(signature);
     }
 
     [Authorize(EmailManagementPermissions.Templates.Create)]
     public async Task<MailSignatureDto> CreateAsync(CreateMailSignatureInput input)
     {
-        var signature = new Domain.Signature.MailSignature(
+        var signature = new Domain.Template.MailSignature(
             GuidGenerator.Create(),
             input.Name,
             input.Content,
@@ -99,7 +99,7 @@ public class MailSignatureAppService : ApplicationService, IMailSignatureAppServ
 
         await _signatureRepository.InsertAsync(signature);
 
-        return ObjectMapper.Map<Domain.Signature.MailSignature, MailSignatureDto>(signature);
+        return ObjectMapper.Map<Domain.Template.MailSignature, MailSignatureDto>(signature);
     }
 
     [Authorize(EmailManagementPermissions.Templates.Update)]
@@ -111,7 +111,7 @@ public class MailSignatureAppService : ApplicationService, IMailSignatureAppServ
 
         await _signatureRepository.UpdateAsync(signature);
 
-        return ObjectMapper.Map<Domain.Signature.MailSignature, MailSignatureDto>(signature);
+        return ObjectMapper.Map<Domain.Template.MailSignature, MailSignatureDto>(signature);
     }
 
     [Authorize(EmailManagementPermissions.Templates.Update)]
