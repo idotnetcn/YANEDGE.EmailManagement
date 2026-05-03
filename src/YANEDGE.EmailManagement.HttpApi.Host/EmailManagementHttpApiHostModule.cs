@@ -8,6 +8,7 @@ using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
+using YANEDGE.EmailManagement.Application.BackgroundJobs;
 using YANEDGE.EmailManagement.EntityFrameworkCore;
 
 namespace YANEDGE.EmailManagement;
@@ -128,6 +129,36 @@ public class EmailManagementHttpApiHostModule : AbpModule
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "邮件管理系统 API v1");
             options.DocumentTitle = "邮件管理系统 - API文档";
         });
+
+        // 注册Hangfire后台任务
+        ConfigureBackgroundJobs();
+    }
+
+    private void ConfigureBackgroundJobs()
+    {
+        // 邮件同步任务 - 每5分钟执行一次
+        RecurringJob.AddOrUpdate<MailSyncJob>(
+            "mail-sync",
+            job => job.ExecuteAsync(),
+            "*/5 * * * *"); // Cron: 每5分钟
+
+        // 发件任务处理 - 每1分钟执行一次
+        RecurringJob.AddOrUpdate<SendTaskProcessorJob>(
+            "send-task-processor",
+            job => job.ExecuteAsync(),
+            "* * * * *"); // Cron: 每1分钟
+
+        // 规则执行任务 - 每10分钟执行一次
+        RecurringJob.AddOrUpdate<RuleExecutionJob>(
+            "rule-execution",
+            job => job.ExecuteAsync(),
+            "*/10 * * * *"); // Cron: 每10分钟
+
+        // 失败任务重试 - 每30分钟执行一次
+        RecurringJob.AddOrUpdate<FailedTaskRetryJob>(
+            "failed-task-retry",
+            job => job.ExecuteAsync(),
+            "*/30 * * * *"); // Cron: 每30分钟
     }
 }
 
