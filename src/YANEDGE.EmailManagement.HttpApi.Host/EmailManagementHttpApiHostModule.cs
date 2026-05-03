@@ -10,6 +10,8 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using YANEDGE.EmailManagement.Application.BackgroundJobs;
 using YANEDGE.EmailManagement.EntityFrameworkCore;
+using YANEDGE.EmailManagement.Middleware;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace YANEDGE.EmailManagement;
 
@@ -32,6 +34,7 @@ public class EmailManagementHttpApiHostModule : AbpModule
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
         ConfigureHangfire(context, configuration);
+        ConfigureHealthChecks(context, configuration);
     }
 
     private void ConfigureHangfire(ServiceConfigurationContext context, IConfiguration configuration)
@@ -98,12 +101,40 @@ public class EmailManagementHttpApiHostModule : AbpModule
         });
     }
 
+    private void ConfigureHealthChecks(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        context.Services.AddHealthChecks()
+            .AddCheck("self", () => HealthCheckResult.Healthy("Application is running"))
+            .AddCheck("database", () =>
+            {
+                try
+                {
+                    using var scope = context.Services.BuildServiceProvider().CreateScope();
+                    var dbContext = scope.ServiceProvider.GetRequiredService<EmailManagementDbContext>();
+                    var canConnect = dbContext.Database.CanConnect();
+                    return canConnect
+                        ? HealthCheckResult.Healthy("Database connection successful")
+                        : HealthCheckResult.Unhealthy("Cannot connect to database");
+                }
+                catch (Exception ex)
+                {
+                    return HealthCheckResult.Unhealthy("Database health check failed", ex);
+                }
+            },
+            tags: new[] { "db", "postgresql" });
+    }
+
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
 
-        if (env.IsDevelopment())
+        // 全局异常处理（必须在最前面）
+        if (!env.IsDevelopment())
+        {
+            app.UseGlobalExceptionHandler();
+        }
+        else
         {
             app.UseDeveloperExceptionPage();
         }
@@ -114,6 +145,45 @@ public class EmailManagementHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseCors();
         app.UseAbpSerilogEnrichers();
+
+        // 健康检查端点
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+            {
+                Predicate = _ => true,
+                ResponseWriter = async (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+                    var result = System.Text.Json.JsonSerializer.Serialize(new
+                    {
+                        status = report.Status.ToString(),
+                        timestamp = DateTime.UtcNow,
+                        checks = report.Entries.Select(e => new
+                        {
+                            name = e.Key,
+                            status = e.Value.Status.ToString(),
+                            description = e.Value.Description,
+                            duration = e.Value.Duration.TotalMilliseconds,
+                            tags = e.Value.Tags
+                        })
+                    });
+                    await context.Response.WriteAsync(result);
+                }
+            });
+
+            // 快速活性检查
+            endpoints.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+            {
+                Predicate = _ => false
+            });
+
+            // 就绪检查
+            endpoints.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+            {
+                Predicate = check => check.Tags.Contains("db") || check.Tags.Contains("hangfire")
+            });
+        });
 
         // Hangfire Dashboard
         app.UseHangfireDashboard("/hangfire", new DashboardOptions
@@ -163,13 +233,24 @@ public class EmailManagementHttpApiHostModule : AbpModule
 }
 
 /// <summary>
-/// Hangfire Dashboard授权过滤器（开发环境允许所有访问）
+/// Hangfire Dashboard授权过滤器
+/// 生产环境需要管理员权限才能访问
 /// </summary>
 public class HangfireDashboardAuthorizationFilter : IDashboardAuthorizationFilter
 {
     public bool Authorize(DashboardContext context)
     {
-        // TODO: 生产环境应该添加适当的授权检查
-        return true;
+        var httpContext = context.GetHttpContext();
+
+        // 开发环境允许所有访问
+        if (httpContext.RequestServices.GetRequiredService<IWebHostEnvironment>().IsDevelopment())
+        {
+            return true;
+        }
+
+        // 生产环境需要认证且具有管理员角色
+        var user = httpContext.User;
+        return user.Identity?.IsAuthenticated == true &&
+               (user.IsInRole("admin") || user.IsInRole("Admin"));
     }
 }
