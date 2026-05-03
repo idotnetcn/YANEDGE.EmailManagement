@@ -1,3 +1,6 @@
+using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.PostgreSql;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
@@ -27,6 +30,29 @@ public class EmailManagementHttpApiHostModule : AbpModule
 
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
+        ConfigureHangfire(context, configuration);
+    }
+
+    private void ConfigureHangfire(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("Default");
+
+        context.Services.AddHangfire(config =>
+        {
+            config.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                  .UseSimpleAssemblyNameTypeSerializer()
+                  .UseRecommendedSerializerSettings()
+                  .UsePostgreSqlStorage(options =>
+                  {
+                      options.UseNpgsqlConnection(connectionString);
+                  });
+        });
+
+        context.Services.AddHangfireServer(options =>
+        {
+            options.WorkerCount = 5;
+            options.ServerName = "EmailManagementServer";
+        });
     }
 
     private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
@@ -87,6 +113,13 @@ public class EmailManagementHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseCors();
         app.UseAbpSerilogEnrichers();
+
+        // Hangfire Dashboard
+        app.UseHangfireDashboard("/hangfire", new DashboardOptions
+        {
+            Authorization = new[] { new HangfireDashboardAuthorizationFilter() }
+        });
+
         app.UseConfiguredEndpoints();
 
         app.UseSwagger();
@@ -95,5 +128,17 @@ public class EmailManagementHttpApiHostModule : AbpModule
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "邮件管理系统 API v1");
             options.DocumentTitle = "邮件管理系统 - API文档";
         });
+    }
+}
+
+/// <summary>
+/// Hangfire Dashboard授权过滤器（开发环境允许所有访问）
+/// </summary>
+public class HangfireDashboardAuthorizationFilter : IDashboardAuthorizationFilter
+{
+    public bool Authorize(DashboardContext context)
+    {
+        // TODO: 生产环境应该添加适当的授权检查
+        return true;
     }
 }
