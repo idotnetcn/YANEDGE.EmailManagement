@@ -8,6 +8,9 @@
     ".NETCoreApp,Version=v10.0": {
       "YANEDGE.EmailManagement.HttpApi.Host/1.0.0": {
         "dependencies": {
+          "Hangfire.AspNetCore": "1.8.19",
+          "Hangfire.Core": "1.8.19",
+          "Hangfire.PostgreSql": "1.20.11",
           "Microsoft.EntityFrameworkCore.Design": "10.0.0",
           "Serilog.AspNetCore": "8.0.0",
           "Serilog.Sinks.Console": "6.0.0",
@@ -131,11 +134,109 @@
           }
         }
       },
+      "Dapper/2.0.123": {
+        "runtime": {
+          "lib/net5.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.123.33578"
+          }
+        }
+      },
       "Duende.IdentityModel/7.1.0": {
         "runtime": {
           "lib/net8.0/Duende.IdentityModel.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.1.0.0"
+          }
+        }
+      },
+      "Hangfire.AspNetCore/1.8.19": {
+        "dependencies": {
+          "Hangfire.NetCore": "1.8.19"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Hangfire.AspNetCore.dll": {
+            "assemblyVersion": "1.8.19.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Hangfire.Core/1.8.19": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.Core.dll": {
+            "assemblyVersion": "1.8.19.0",
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/ca/Hangfire.Core.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/netstandard2.0/de/Hangfire.Core.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/Hangfire.Core.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fa/Hangfire.Core.resources.dll": {
+            "locale": "fa"
+          },
+          "lib/netstandard2.0/fr/Hangfire.Core.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/nb/Hangfire.Core.resources.dll": {
+            "locale": "nb"
+          },
+          "lib/netstandard2.0/nl/Hangfire.Core.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/netstandard2.0/pt-BR/Hangfire.Core.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.0/pt-PT/Hangfire.Core.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/netstandard2.0/pt/Hangfire.Core.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/netstandard2.0/sv/Hangfire.Core.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/netstandard2.0/tr-TR/Hangfire.Core.resources.dll": {
+            "locale": "tr-TR"
+          },
+          "lib/netstandard2.0/zh-TW/Hangfire.Core.resources.dll": {
+            "locale": "zh-TW"
+          },
+          "lib/netstandard2.0/zh/Hangfire.Core.resources.dll": {
+            "locale": "zh"
+          }
+        }
+      },
+      "Hangfire.NetCore/1.8.19": {
+        "dependencies": {
+          "Hangfire.Core": "1.8.19"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Hangfire.NetCore.dll": {
+            "assemblyVersion": "1.8.19.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Hangfire.PostgreSql/1.20.11": {
+        "dependencies": {
+          "Dapper": "2.0.123",
+          "Hangfire.Core": "1.8.19",
+          "Npgsql": "9.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.PostgreSql.dll": {
+            "assemblyVersion": "1.20.11.0",
+            "fileVersion": "1.20.11.0"
           }
         }
       },
@@ -1956,12 +2057,47 @@
       "path": "castle.core.asyncinterceptor/2.1.0",
       "hashPath": "castle.core.asyncinterceptor.2.1.0.nupkg.sha512"
     },
+    "Dapper/2.0.123": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
+      "path": "dapper/2.0.123",
+      "hashPath": "dapper.2.0.123.nupkg.sha512"
+    },
     "Duende.IdentityModel/7.1.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-Ihn2LiHZfiGD0Qu6aKngK5xtqOocZcS88khVG0Xv7uObfzilevAvXHDhAqpvWiZNIXPeCD6SA5Wy/rfP0U4brA==",
       "path": "duende.identitymodel/7.1.0",
       "hashPath": "duende.identitymodel.7.1.0.nupkg.sha512"
+    },
+    "Hangfire.AspNetCore/1.8.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pXByyeJG1d0bvAMS0PifigQ8wM2uahWgSdsnKCj21yEWuZdJ64rnCTRb6DweVxEDZCof45Kb6vxPZkajQXo7CA==",
+      "path": "hangfire.aspnetcore/1.8.19",
+      "hashPath": "hangfire.aspnetcore.1.8.19.nupkg.sha512"
+    },
+    "Hangfire.Core/1.8.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ydGC5lhNQuwqsqJ8cGJ6uwoTUdmxFQkPYgTSIfBxaXCw5WEVQKnephTl64GZdlRirw6E1s5xFcAhjp/iuJPg1Q==",
+      "path": "hangfire.core/1.8.19",
+      "hashPath": "hangfire.core.1.8.19.nupkg.sha512"
+    },
+    "Hangfire.NetCore/1.8.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IlqcTEYHvKEDAIAn3IbkPmsIxx1KrZebkORuDzau1PSNdaoSlwM7xoKLE0CswUz+LGdlj21ecOTGG85t1Ik+KQ==",
+      "path": "hangfire.netcore/1.8.19",
+      "hashPath": "hangfire.netcore.1.8.19.nupkg.sha512"
+    },
+    "Hangfire.PostgreSql/1.20.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ww0d6McsuTe5kufiyDUwSfreqtLCXqvu2dHO3YSklf5+ra9J+24DuZrF5zCG3w13n1ximkhuoCtE3ztmvOhQ6Q==",
+      "path": "hangfire.postgresql/1.20.11",
+      "hashPath": "hangfire.postgresql.1.20.11.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",
