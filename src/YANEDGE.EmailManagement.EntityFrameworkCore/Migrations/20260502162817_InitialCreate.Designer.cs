@@ -13,7 +13,7 @@ using YANEDGE.EmailManagement.EntityFrameworkCore;
 namespace YANEDGE.EmailManagement.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(EmailManagementDbContext))]
-    [Migration("20260503123616_InitialCreate")]
+    [Migration("20260502162817_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

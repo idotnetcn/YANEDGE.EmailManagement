@@ -1,6 +1,6 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Text.Json;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using YANEDGE.EmailManagement.Domain.MailAccount;
 using YANEDGE.EmailManagement.Domain.MailMessage;
@@ -177,9 +177,8 @@ public static class EmailManagementDbContextModelCreatingExtensions
         builder.Entity<MailMessageLabel>(b =>
         {
             b.ToTable("MailMessageLabels");
-            b.ConfigureByConvention();
-
             b.HasKey(x => new { x.MailMessageId, x.LabelId });
+            b.ConfigureByConvention();
 
             b.HasIndex(x => x.MailMessageId);
             b.HasIndex(x => x.LabelId);

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "C5qSzsQ7g8k=",
+  "dgSpecHash": "2sBF8J/JKOU=",
   "success": true,
   "projectFilePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj",
   "expectedPackageFiles": [
@@ -13,18 +13,11 @@
     "/home/runner/.nuget/packages/autofac.extensions.dependencyinjection/10.0.0/autofac.extensions.dependencyinjection.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/autofac.extras.dynamicproxy/7.1.0/autofac.extras.dynamicproxy.7.1.0.nupkg.sha512",
     "/home/runner/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/bouncycastle.cryptography/2.4.0/bouncycastle.cryptography.2.4.0.nupkg.sha512",
     "/home/runner/.nuget/packages/castle.core/5.2.1/castle.core.5.2.1.nupkg.sha512",
     "/home/runner/.nuget/packages/castle.core.asyncinterceptor/2.1.0/castle.core.asyncinterceptor.2.1.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/home/runner/.nuget/packages/duende.identitymodel/7.1.0/duende.identitymodel.7.1.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/hangfire.aspnetcore/1.8.19/hangfire.aspnetcore.1.8.19.nupkg.sha512",
-    "/home/runner/.nuget/packages/hangfire.core/1.8.19/hangfire.core.1.8.19.nupkg.sha512",
-    "/home/runner/.nuget/packages/hangfire.netcore/1.8.19/hangfire.netcore.1.8.19.nupkg.sha512",
-    "/home/runner/.nuget/packages/hangfire.postgresql/1.20.11/hangfire.postgresql.1.20.11.nupkg.sha512",
     "/home/runner/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/runner/.nuget/packages/jetbrains.annotations/2025.2.2/jetbrains.annotations.2025.2.2.nupkg.sha512",
-    "/home/runner/.nuget/packages/mailkit/4.8.0/mailkit.4.8.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/10.0.0/microsoft.aspnetcore.authentication.openidconnect.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.bcl.asyncinterfaces/10.0.0/microsoft.bcl.asyncinterfaces.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.build/17.7.2/microsoft.build.17.7.2.nupkg.sha512",
@@ -54,7 +47,6 @@
     "/home/runner/.nuget/packages/microsoft.identitymodel.tokens/8.0.1/microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.net.stringtools/17.14.28/microsoft.net.stringtools.17.14.28.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.openapi/1.6.25/microsoft.openapi.1.6.25.nupkg.sha512",
-    "/home/runner/.nuget/packages/mimekit/4.8.0/mimekit.4.8.0.nupkg.sha512",
     "/home/runner/.nuget/packages/mono.texttemplating/3.0.0/mono.texttemplating.3.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/mycsharp.httpuseragentparser/3.0.28/mycsharp.httpuseragentparser.3.0.28.nupkg.sha512",
     "/home/runner/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
@@ -185,30 +177,6 @@
       "warningLevel": 1,
       "filePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj",
       "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    },
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "message": "Package 'MailKit' 4.8.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
-      "projectPath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj",
-      "warningLevel": 1,
-      "filePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj",
-      "libraryId": "MailKit",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    },
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "message": "Package 'MimeKit' 4.8.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-g7hc-96xr-gvvx",
-      "projectPath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj",
-      "warningLevel": 1,
-      "filePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj",
-      "libraryId": "MimeKit",
       "targetGraphs": [
         "net10.0"
       ]
