@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using YANEDGE.EmailManagement.Domain.MailAccount;
 using YANEDGE.EmailManagement.Domain.MailMessage;
@@ -192,26 +193,37 @@ public static class EmailManagementDbContextModelCreatingExtensions
             b.Property(x => x.Name).IsRequired().HasMaxLength(200);
             b.Property(x => x.Description).HasMaxLength(1000);
 
-            // 配置复杂类型为JSON
             b.Property(x => x.ApplicableMailAccountIds)
                 .HasConversion(
-                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                    v => JsonSerializer.Deserialize<List<Guid>>(v, (JsonSerializerOptions)null) ?? new List<Guid>())
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => JsonSerializer.Deserialize<List<Guid>>(v, (JsonSerializerOptions?)null) ?? new List<Guid>(),
+                    new ValueComparer<List<Guid>>(
+                        (c1, c2) => c1!.SequenceEqual(c2!),
+                        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                        c => c.ToList()))
                 .HasColumnType("jsonb");
 
             b.Property(x => x.Conditions)
+                .IsRequired()
                 .HasConversion(
-                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                    v => JsonSerializer.Deserialize<List<RuleCondition>>(v, (JsonSerializerOptions)null) ?? new List<RuleCondition>())
-                .HasColumnType("jsonb")
-                .IsRequired();
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => JsonSerializer.Deserialize<List<RuleCondition>>(v, (JsonSerializerOptions?)null) ?? new List<RuleCondition>(),
+                    new ValueComparer<List<RuleCondition>>(
+                        (c1, c2) => c1!.SequenceEqual(c2!),
+                        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                        c => c.ToList()))
+                .HasColumnType("jsonb");
 
             b.Property(x => x.Actions)
+                .IsRequired()
                 .HasConversion(
-                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                    v => JsonSerializer.Deserialize<List<RuleAction>>(v, (JsonSerializerOptions)null) ?? new List<RuleAction>())
-                .HasColumnType("jsonb")
-                .IsRequired();
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => JsonSerializer.Deserialize<List<RuleAction>>(v, (JsonSerializerOptions?)null) ?? new List<RuleAction>(),
+                    new ValueComparer<List<RuleAction>>(
+                        (c1, c2) => c1!.SequenceEqual(c2!),
+                        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                        c => c.ToList()))
+                .HasColumnType("jsonb");
 
             b.HasIndex(x => x.IsActive);
             b.HasIndex(x => x.Priority);
