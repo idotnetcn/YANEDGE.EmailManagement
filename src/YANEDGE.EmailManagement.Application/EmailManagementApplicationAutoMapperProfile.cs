@@ -4,13 +4,13 @@ using YANEDGE.EmailManagement.Application.Contracts.MailThread;
 using YANEDGE.EmailManagement.Application.Contracts.MailMessage;
 using YANEDGE.EmailManagement.Application.Contracts.MailCompose;
 using YANEDGE.EmailManagement.Application.Contracts.Approval;
-using YANEDGE.EmailManagement.Application.Contracts.Template;
-using YANEDGE.EmailManagement.Application.Contracts.Signature;
-using YANEDGE.EmailManagement.Application.Contracts.Label;
-using YANEDGE.EmailManagement.Application.Contracts.Rule;
-using YANEDGE.EmailManagement.Application.Contracts.Attachment;
-using YANEDGE.EmailManagement.Application.Contracts.Contact;
-using YANEDGE.EmailManagement.Application.Contracts.BusinessRelation;
+using YANEDGE.EmailManagement.Template;
+using YANEDGE.EmailManagement.Signature;
+using YANEDGE.EmailManagement.Label;
+using YANEDGE.EmailManagement.Rule;
+using YANEDGE.EmailManagement.Attachment;
+using YANEDGE.EmailManagement.Contact;
+using YANEDGE.EmailManagement.BusinessRelation;
 using YANEDGE.EmailManagement.Domain.MailAccount;
 using YANEDGE.EmailManagement.Domain.MailThread;
 using YANEDGE.EmailManagement.Domain.MailMessage;
@@ -32,11 +32,7 @@ public class EmailManagementApplicationAutoMapperProfile : Profile
         // MailAccount mappings
         CreateMap<MailAccount, MailAccountDto>();
         CreateMap<CreateMailAccountInput, MailAccount>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.CreationTime, opt => opt.Ignore())
-            .ForMember(dest => dest.CreatorId, opt => opt.Ignore())
-            .ForMember(dest => dest.LastModificationTime, opt => opt.Ignore())
-            .ForMember(dest => dest.LastModifierId, opt => opt.Ignore());
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         // MailThread mappings
         CreateMap<MailThread, MailThreadDto>();
@@ -48,9 +44,7 @@ public class EmailManagementApplicationAutoMapperProfile : Profile
         CreateMap<MailSendTask, MailSendTaskDto>();
         CreateMap<CreateSendTaskInput, MailSendTask>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.Status, opt => opt.Ignore())
-            .ForMember(dest => dest.CreationTime, opt => opt.Ignore())
-            .ForMember(dest => dest.CreatorId, opt => opt.Ignore());
+            .ForMember(dest => dest.Status, opt => opt.Ignore());
 
         // MailApproval mappings
         CreateMap<MailApproval, MailApprovalDto>();
@@ -160,8 +154,6 @@ public class EmailManagementApplicationAutoMapperProfile : Profile
         CreateMap<UpdateMailBusinessRelationInput, MailBusinessRelation>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.CreationTime, opt => opt.Ignore())
-            .ForMember(dest => dest.CreatorId, opt => opt.Ignore())
-            .ForMember(dest => dest.LastModificationTime, opt => opt.Ignore())
-            .ForMember(dest => dest.LastModifierId, opt => opt.Ignore());
+            .ForMember(dest => dest.CreatorId, opt => opt.Ignore());
     }
 }

@@ -35,7 +35,7 @@ public class SmtpImapAdapter : IMailProtocolAdapter, ITransientDependency
             _logger.LogInformation("Testing IMAP/SMTP connection for account: {EmailAddress}", account.EmailAddress);
 
             // 解密密码
-            var password = await _encryptionService.DecryptAsync(account.EncryptedPassword);
+            var password = _encryptionService.Decrypt(account.EncryptedPassword);
 
             // TODO: 实现真实的IMAP/SMTP连接测试
             // 使用 MailKit 库:
@@ -67,7 +67,7 @@ public class SmtpImapAdapter : IMailProtocolAdapter, ITransientDependency
             _logger.LogInformation("Syncing emails for account: {EmailAddress}", account.EmailAddress);
 
             // 解密密码
-            var password = await _encryptionService.DecryptAsync(account.EncryptedPassword);
+            var password = _encryptionService.Decrypt(account.EncryptedPassword);
 
             // TODO: 实现真实的IMAP邮件同步
             // 使用 MailKit 的 ImapClient:
@@ -103,7 +103,7 @@ public class SmtpImapAdapter : IMailProtocolAdapter, ITransientDependency
             _logger.LogInformation("Sending email from account: {EmailAddress}", account.EmailAddress);
 
             // 解密密码
-            var password = await _encryptionService.DecryptAsync(account.EncryptedPassword);
+            var password = _encryptionService.Decrypt(account.EncryptedPassword);
 
             // TODO: 实现真实的SMTP邮件发送
             // 使用 MailKit 的 SmtpClient:
