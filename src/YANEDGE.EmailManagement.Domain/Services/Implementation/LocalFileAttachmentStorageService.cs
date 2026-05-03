@@ -37,7 +37,7 @@ public class LocalFileAttachmentStorageService : IAttachmentStorageService, ITra
 
         // 确保目录存在
         var directory = Path.GetDirectoryName(filePath);
-        if (!Directory.Exists(directory))
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
         }

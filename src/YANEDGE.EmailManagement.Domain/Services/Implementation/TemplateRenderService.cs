@@ -90,6 +90,6 @@ public class TemplateRenderService : ITemplateRenderService, ITransientDependenc
             variables = escapedVariables;
         }
 
-        return await RenderAsync(bodyTemplate, variables);
+        return await RenderAsync(bodyTemplate, variables ?? new Dictionary<string, object>());
     }
 }

@@ -135,34 +135,13 @@ public class RuleMatchingService : IRuleMatchingService, ITransientDependency
                     return Task.FromResult(message.Subject != null &&
                         message.Subject.Contains(condition.Value, StringComparison.OrdinalIgnoreCase));
 
-                case RuleConditionType.SubjectMatches:
-                    try
-                    {
-                        var regex = new Regex(condition.Value, RegexOptions.IgnoreCase);
-                        return Task.FromResult(message.Subject != null && regex.IsMatch(message.Subject));
-                    }
-                    catch
-                    {
-                        return Task.FromResult(false);
-                    }
-
                 case RuleConditionType.BodyContains:
-                    var body = message.HtmlBody ?? message.PlainTextBody ?? string.Empty;
+                    var body = message.SanitizedHtmlBody ?? message.TextBody ?? string.Empty;
                     return Task.FromResult(body.Contains(condition.Value, StringComparison.OrdinalIgnoreCase));
 
                 case RuleConditionType.HasAttachment:
                     var hasAttachment = bool.TryParse(condition.Value, out var expected) && expected;
                     return Task.FromResult(message.HasAttachment == hasAttachment);
-
-                case RuleConditionType.RecipientContains:
-                    return Task.FromResult(
-                        (message.ToAddresses != null && message.ToAddresses.Contains(condition.Value, StringComparison.OrdinalIgnoreCase)) ||
-                        (message.CcAddresses != null && message.CcAddresses.Contains(condition.Value, StringComparison.OrdinalIgnoreCase))
-                    );
-
-                case RuleConditionType.IsImportant:
-                    var isImportant = bool.TryParse(condition.Value, out var importantExpected) && importantExpected;
-                    return Task.FromResult(message.IsImportant == isImportant);
 
                 default:
                     return Task.FromResult(false);
@@ -189,20 +168,20 @@ public class RuleMatchingService : IRuleMatchingService, ITransientDependency
                     return Task.FromResult<object>(new { Action = "AutoAssign", Parameters = action.Parameters });
 
                 case RuleActionType.MarkImportant:
-                    message.MarkAsImportant();
+                    message.SetImportance(1);
                     return Task.FromResult<object>(new { Action = "MarkImportant", Success = true });
 
-                case RuleActionType.MarkRead:
-                    message.MarkAsRead();
-                    return Task.FromResult<object>(new { Action = "MarkRead", Success = true });
-
-                case RuleActionType.Archive:
+                case RuleActionType.AutoArchive:
                     // 实际实现需要调用归档服务
-                    return Task.FromResult<object>(new { Action = "Archive", Parameters = action.Parameters });
+                    return Task.FromResult<object>(new { Action = "AutoArchive", Parameters = action.Parameters });
 
-                case RuleActionType.Notification:
-                    // 实际实现需要调用通知服务
-                    return Task.FromResult<object>(new { Action = "Notification", Parameters = action.Parameters });
+                case RuleActionType.MoveToJunk:
+                    // 实际实现需要调用垃圾箱服务
+                    return Task.FromResult<object>(new { Action = "MoveToJunk", Parameters = action.Parameters });
+
+                case RuleActionType.SetPriority:
+                    // 实际实现需要调用优先级设置服务
+                    return Task.FromResult<object>(new { Action = "SetPriority", Parameters = action.Parameters });
 
                 default:
                     return Task.FromResult<object>(new { Action = "Unknown", Success = false });
