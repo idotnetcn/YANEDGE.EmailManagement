@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2sBF8J/JKOU=",
+  "dgSpecHash": "22TtdxvNCd0=",
   "success": true,
   "projectFilePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj",
   "expectedPackageFiles": [
@@ -15,7 +15,12 @@
     "/home/runner/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/castle.core/5.2.1/castle.core.5.2.1.nupkg.sha512",
     "/home/runner/.nuget/packages/castle.core.asyncinterceptor/2.1.0/castle.core.asyncinterceptor.2.1.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/home/runner/.nuget/packages/duende.identitymodel/7.1.0/duende.identitymodel.7.1.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/hangfire.aspnetcore/1.8.19/hangfire.aspnetcore.1.8.19.nupkg.sha512",
+    "/home/runner/.nuget/packages/hangfire.core/1.8.19/hangfire.core.1.8.19.nupkg.sha512",
+    "/home/runner/.nuget/packages/hangfire.netcore/1.8.19/hangfire.netcore.1.8.19.nupkg.sha512",
+    "/home/runner/.nuget/packages/hangfire.postgresql/1.20.11/hangfire.postgresql.1.20.11.nupkg.sha512",
     "/home/runner/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/runner/.nuget/packages/jetbrains.annotations/2025.2.2/jetbrains.annotations.2025.2.2.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/10.0.0/microsoft.aspnetcore.authentication.openidconnect.10.0.0.nupkg.sha512",
