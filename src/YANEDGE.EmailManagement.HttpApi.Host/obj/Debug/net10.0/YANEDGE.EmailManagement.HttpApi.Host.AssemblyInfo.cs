@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YANEDGE.EmailManagement.HttpApi.Host")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc8cdcadff14aef045f666d143f8bd04ea91d882")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+783b84a5189be8402533a314d2ff52245665b051")]
 [assembly: System.Reflection.AssemblyProductAttribute("YANEDGE.EmailManagement.HttpApi.Host")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YANEDGE.EmailManagement.HttpApi.Host")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

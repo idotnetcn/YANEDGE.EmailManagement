@@ -1,0 +1,48 @@
+*.swp
+*.bak
+*.tmp
+*~
+.DS_Store
+Thumbs.db
+
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+Logs/
+logs/
+*.log
+
+# Environment files (should be handled via environment variables in production)
+.env
+.env.local
+.env.production
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+
+# Dependencies (will be restored during build)
+**/node_modules/
+**/packages/
