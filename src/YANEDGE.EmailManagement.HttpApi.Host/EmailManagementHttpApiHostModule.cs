@@ -16,6 +16,7 @@ using Volo.Abp.Swashbuckle;
 using YANEDGE.EmailManagement.Application.BackgroundJobs;
 using YANEDGE.EmailManagement.EntityFrameworkCore;
 using YANEDGE.EmailManagement.Middleware;
+using YANEDGE.EmailManagement.Services.Implementation;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace YANEDGE.EmailManagement;
@@ -43,6 +44,7 @@ public class EmailManagementHttpApiHostModule : AbpModule
         ConfigureHangfire(context, configuration);
         ConfigureHealthChecks(context, configuration);
         ConfigureOpenTelemetry(context, configuration, hostingEnvironment);
+        ConfigureSecurity(context, configuration);
     }
 
     private void ConfigureCaching(ServiceConfigurationContext context, IConfiguration configuration)
@@ -196,12 +198,38 @@ public class EmailManagementHttpApiHostModule : AbpModule
                 .AddConsoleExporter()); // In production, use OTLP exporter
     }
 
+    private void ConfigureSecurity(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        // 配置病毒扫描服务
+        var virusScanConfig = configuration.GetSection("Security:VirusScan");
+        context.Services.AddSingleton(new ClamAvOptions
+        {
+            Enabled = virusScanConfig.GetValue<bool>("Enabled", true),
+            UseClamdScan = virusScanConfig.GetValue<bool>("UseClamdScan", true),
+            ScanTimeoutSeconds = virusScanConfig.GetValue<int>("ScanTimeoutSeconds", 300),
+            MaxFileSizeMB = virusScanConfig.GetValue<int>("MaxFileSizeMB", 100)
+        });
+    }
+
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
+        var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
 
-        // 全局异常处理（必须在最前面）
+        // 安全头中间件（必须在最前面）
+        var securityHeadersConfig = configuration.GetSection("Security:SecurityHeaders");
+        if (securityHeadersConfig.GetValue<bool>("Enabled", true))
+        {
+            app.UseSecurityHeaders(new SecurityHeadersOptions
+            {
+                EnableHsts = securityHeadersConfig.GetValue<bool>("EnableHsts", true),
+                HstsMaxAge = securityHeadersConfig.GetValue<int>("HstsMaxAge", 31536000),
+                EnableContentSecurityPolicy = securityHeadersConfig.GetValue<bool>("EnableContentSecurityPolicy", true)
+            });
+        }
+
+        // 全局异常处理
         if (!env.IsDevelopment())
         {
             app.UseGlobalExceptionHandler();
@@ -209,6 +237,20 @@ public class EmailManagementHttpApiHostModule : AbpModule
         else
         {
             app.UseDeveloperExceptionPage();
+        }
+
+        // 速率限制中间件（在认证之前）
+        var rateLimitConfig = configuration.GetSection("Security:RateLimit");
+        if (rateLimitConfig.GetValue<bool>("Enabled", true))
+        {
+            app.UseRateLimiting(new RateLimitOptions
+            {
+                DefaultRule = new RateLimitRule
+                {
+                    MaxRequests = rateLimitConfig.GetValue<int>("DefaultMaxRequests", 100),
+                    WindowSeconds = rateLimitConfig.GetValue<int>("DefaultWindowSeconds", 60)
+                }
+            });
         }
 
         app.UseAbpRequestLocalization();
