@@ -205,7 +205,7 @@ public class MailThreadAppService : ApplicationService, IMailThreadAppService
             LatestMessageTime = cache.LatestMessageTime,
             MessageCount = cache.MessageCount,
             HasAttachment = cache.HasAttachment,
-            Priority = cache.Priority,
+            Priority = cache.Priority ?? 0,
             UnreadCount = cache.UnreadCount
         };
     }
