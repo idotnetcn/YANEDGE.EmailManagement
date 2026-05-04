@@ -1,0 +1,22 @@
+/.vs
+
+# Build output
+**/bin/
+**/obj/
+
+# Test output
+**/TestResults/
+*.trx
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and local database/cache artifacts
+*.log
+*.cache
+*.db
+*.db-shm
+*.db-wal
