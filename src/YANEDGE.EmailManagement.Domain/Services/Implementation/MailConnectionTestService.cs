@@ -12,11 +12,11 @@ namespace YANEDGE.EmailManagement.Services.Implementation;
 /// </summary>
 public class MailConnectionTestService : IMailConnectionTestService, ITransientDependency
 {
-    private readonly IPasswordEncryptionService _encryptionService;
+    private readonly IMailProtocolAdapter _protocolAdapter;
 
-    public MailConnectionTestService(IPasswordEncryptionService encryptionService)
+    public MailConnectionTestService(IMailProtocolAdapter protocolAdapter)
     {
-        _encryptionService = encryptionService;
+        _protocolAdapter = protocolAdapter;
     }
 
     public async Task<MailConnectionTestResult> TestConnectionAsync(MailAccount account)
@@ -25,35 +25,23 @@ public class MailConnectionTestService : IMailConnectionTestService, ITransientD
 
         try
         {
-            // 解密密码
-            var password = _encryptionService.Decrypt(account.EncryptedPassword);
+            // 使用协议适配器进行真实的连接测试
+            var success = await _protocolAdapter.TestConnectionAsync(account);
 
-            // TODO: 实现真实的IMAP/SMTP连接测试
-            // 这里返回模拟结果
-            await Task.Delay(100);
-
-            // 模拟连接测试
-            if (string.IsNullOrEmpty(account.IncomingHost) || string.IsNullOrEmpty(password))
-            {
-                result.IncomingSuccess = false;
-                result.IncomingError = "Invalid incoming server configuration";
-            }
-            else
+            if (success)
             {
                 result.IncomingSuccess = true;
-            }
-
-            if (string.IsNullOrEmpty(account.OutgoingHost) || string.IsNullOrEmpty(password))
-            {
-                result.OutgoingSuccess = false;
-                result.OutgoingError = "Invalid outgoing server configuration";
+                result.OutgoingSuccess = true;
+                result.Detail = "Connection test completed successfully";
             }
             else
             {
-                result.OutgoingSuccess = true;
+                result.IncomingSuccess = false;
+                result.OutgoingSuccess = false;
+                result.IncomingError = "Connection test failed";
+                result.OutgoingError = "Connection test failed";
+                result.Detail = "Connection test failed";
             }
-
-            result.Detail = "Connection test completed (simulated)";
 
             return result;
         }

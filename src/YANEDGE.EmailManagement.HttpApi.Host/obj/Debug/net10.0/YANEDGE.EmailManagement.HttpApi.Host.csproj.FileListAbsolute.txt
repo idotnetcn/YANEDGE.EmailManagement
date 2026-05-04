@@ -309,3 +309,6 @@
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/zh/Hangfire.Core.resources.dll
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/appsettings.Production.json
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/appsettings.Staging.json
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/BouncyCastle.Cryptography.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/MailKit.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/MimeKit.dll
