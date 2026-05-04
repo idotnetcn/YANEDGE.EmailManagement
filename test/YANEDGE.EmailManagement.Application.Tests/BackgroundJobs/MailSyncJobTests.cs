@@ -7,23 +7,24 @@ using Shouldly;
 using Volo.Abp.Uow;
 using Xunit;
 using YANEDGE.EmailManagement.Application.BackgroundJobs;
-using YANEDGE.EmailManagement.Domain.DomainMailAccount;
 using YANEDGE.EmailManagement.Domain.Services;
-using DomainDomainMailAccount = YANEDGE.EmailManagement.Domain.DomainMailAccount.DomainMailAccount;
+using YANEDGE.EmailManagement.Enums;
+using MailAccountEntity = YANEDGE.EmailManagement.Domain.MailAccount.MailAccount;
+using IMailAccountRepository = YANEDGE.EmailManagement.Domain.MailAccount.IMailAccountRepository;
 
 namespace YANEDGE.EmailManagement.Application.Tests.BackgroundJobs;
 
 public class MailSyncJobTests : EmailManagementApplicationTestBase
 {
     private readonly MailSyncJob _mailSyncJob;
-    private readonly IDomainMailAccountRepository _mailAccountRepository;
+    private readonly IMailAccountRepository _mailAccountRepository;
     private readonly IMailSyncService _mailSyncService;
     private readonly ILogger<MailSyncJob> _logger;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
 
     public MailSyncJobTests()
     {
-        _mailAccountRepository = Substitute.For<IDomainMailAccountRepository>();
+        _mailAccountRepository = Substitute.For<IMailAccountRepository>();
         _mailSyncService = Substitute.For<IMailSyncService>();
         _logger = Substitute.For<ILogger<MailSyncJob>>();
         _unitOfWorkManager = GetRequiredService<IUnitOfWorkManager>();
@@ -40,7 +41,7 @@ public class MailSyncJobTests : EmailManagementApplicationTestBase
     {
         // Arrange
         _mailAccountRepository.GetSyncEnabledAccountsAsync()
-            .Returns(Task.FromResult(new List<DomainDomainMailAccount>()));
+            .Returns(Task.FromResult(new List<MailAccountEntity>()));
 
         // Act
         await _mailSyncJob.ExecuteAsync();
@@ -56,7 +57,7 @@ public class MailSyncJobTests : EmailManagementApplicationTestBase
         // Arrange
         var account1 = CreateTestAccount();
         var account2 = CreateTestAccount();
-        var accounts = new List<DomainMailAccount> { account1, account2 };
+        var accounts = new List<MailAccountEntity> { account1, account2 };
 
         _mailAccountRepository.GetSyncEnabledAccountsAsync()
             .Returns(Task.FromResult(accounts));
@@ -79,7 +80,7 @@ public class MailSyncJobTests : EmailManagementApplicationTestBase
         // Arrange
         var account1 = CreateTestAccount();
         var account2 = CreateTestAccount();
-        var accounts = new List<DomainMailAccount> { account1, account2 };
+        var accounts = new List<MailAccountEntity> { account1, account2 };
 
         _mailAccountRepository.GetSyncEnabledAccountsAsync()
             .Returns(Task.FromResult(accounts));
@@ -99,19 +100,19 @@ public class MailSyncJobTests : EmailManagementApplicationTestBase
         await _mailSyncService.Received(1).TriggerSyncAsync(account2.Id);
     }
 
-    private DomainMailAccount CreateTestAccount()
+    private MailAccountEntity CreateTestAccount()
     {
-        return new DomainMailAccount(
+        return new MailAccountEntity(
             Guid.NewGuid(),
             $"Test Account {Guid.NewGuid()}",
             $"test{Guid.NewGuid()}@example.com",
             "Test User",
-            "Personal",
-            "IMAP",
+            MailAccountType.Personal,
+            MailProtocol.IMAP,
             "imap.example.com",
             993,
             true,
-            "SMTP",
+            MailProtocol.IMAP,  // SMTP protocol should also be MailProtocol enum
             "smtp.example.com",
             587,
             true,
