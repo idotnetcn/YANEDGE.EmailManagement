@@ -1,0 +1,8 @@
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/bin/Debug/net10.0/.msCoverageSourceRootsMapping_YANEDGE.EmailManagement.Application.Tests
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/bin/Debug/net10.0/CoverletSourceRootsMapping_YANEDGE.EmailManagement.Application.Tests
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Tests.csproj.AssemblyReference.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Tests.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Tests.AssemblyInfoInputs.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Tests.AssemblyInfo.cs
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Tests.csproj.CoreCompileInputs.cache
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Application.Tests.sourcelink.json
