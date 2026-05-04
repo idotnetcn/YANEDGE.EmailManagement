@@ -1,14 +1,17 @@
+using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Users;
 using YANEDGE.EmailManagement.Application.Contracts.Approval;
 using YANEDGE.EmailManagement.Domain.Approval;
 using YANEDGE.EmailManagement.Domain.MailCompose;
+using YANEDGE.EmailManagement.Permissions;
 
 namespace YANEDGE.EmailManagement.Application.Approval;
 
 /// <summary>
 /// 审批应用服务
 /// </summary>
+[Authorize(EmailManagementPermissions.SendTasks.Approve)]
 public class ApprovalAppService : ApplicationService, IApprovalAppService
 {
     private readonly IMailApprovalRepository _mailApprovalRepository;

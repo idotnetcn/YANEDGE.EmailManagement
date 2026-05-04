@@ -57,6 +57,38 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authorization/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "10.0.0",
+          "Microsoft.Extensions.Diagnostics": "10.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0",
+          "Microsoft.Extensions.Options": "10.0.0"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/10.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.Metadata.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Metadata.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/10.0.0": {
         "type": "package",
         "compile": {
@@ -386,6 +418,27 @@
         },
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Diagnostics/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "10.0.0",
+          "Microsoft.Extensions.Diagnostics.Abstractions": "10.0.0",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "10.0.0"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.Diagnostics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Diagnostics.dll": {
             "related": ".xml"
           }
         },
@@ -884,6 +937,42 @@
         },
         "runtime": {
           "lib/net10.0/Volo.Abp.Auditing.Contracts.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Volo.Abp.Authorization/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Volo.Abp.Authorization.Abstractions": "10.0.0",
+          "Volo.Abp.Localization": "10.0.0",
+          "Volo.Abp.MultiTenancy": "10.0.0",
+          "Volo.Abp.Security": "10.0.0"
+        },
+        "compile": {
+          "lib/net10.0/Volo.Abp.Authorization.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Volo.Abp.Authorization.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Volo.Abp.Authorization.Abstractions/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authorization": "10.0.0",
+          "Volo.Abp.MultiTenancy.Abstractions": "10.0.0"
+        },
+        "compile": {
+          "lib/net10.0/Volo.Abp.Authorization.Abstractions.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Volo.Abp.Authorization.Abstractions.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -1484,6 +1573,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Volo.Abp.Authorization": "10.0.0",
           "Volo.Abp.Core": "10.0.0",
           "Volo.Abp.Ddd.Domain": "10.0.0",
           "Volo.Abp.Ddd.Domain.Shared": "10.0.0",
@@ -1612,6 +1702,44 @@
         "lib/netstandard2.1/MailKit.xml",
         "mailkit.4.16.0.nupkg.sha512",
         "mailkit.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authorization/10.0.0": {
+      "sha512": "8qUwBAtUj9kX8RwqEPGJu3zGM/GlwF2bR9gsxk/+kiSmCB6aDYlYF7E2gM9VOYS9NDF6zxTSEgJxwD9kFbu8Sw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authorization/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/net10.0/Microsoft.AspNetCore.Authorization.xml",
+        "lib/net462/Microsoft.AspNetCore.Authorization.dll",
+        "lib/net462/Microsoft.AspNetCore.Authorization.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.xml",
+        "microsoft.aspnetcore.authorization.10.0.0.nupkg.sha512",
+        "microsoft.aspnetcore.authorization.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Metadata/10.0.0": {
+      "sha512": "uMXReBNxJKabrdoxHn4LNDTlGQFGDPtntlVvqo/b0HaxJzeDAIMFXJJ64mufJCNRuQU/Pus8ngcTZErvnsh7vg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.metadata/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.AspNetCore.Metadata.dll",
+        "lib/net10.0/Microsoft.AspNetCore.Metadata.xml",
+        "lib/net462/Microsoft.AspNetCore.Metadata.dll",
+        "lib/net462/Microsoft.AspNetCore.Metadata.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.xml",
+        "microsoft.aspnetcore.metadata.10.0.0.nupkg.sha512",
+        "microsoft.aspnetcore.metadata.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/10.0.0": {
@@ -2088,6 +2216,34 @@
         "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Diagnostics/10.0.0": {
+      "sha512": "xjkxIPgrT0mKTfBwb+CVqZnRchyZgzKIfDQOp8z+WUC6vPe3WokIf71z+hJPkH0YBUYJwa7Z/al1R087ib9oiw==",
+      "type": "package",
+      "path": "microsoft.extensions.diagnostics/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Diagnostics.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Diagnostics.targets",
+        "lib/net10.0/Microsoft.Extensions.Diagnostics.dll",
+        "lib/net10.0/Microsoft.Extensions.Diagnostics.xml",
+        "lib/net462/Microsoft.Extensions.Diagnostics.dll",
+        "lib/net462/Microsoft.Extensions.Diagnostics.xml",
+        "lib/net8.0/Microsoft.Extensions.Diagnostics.dll",
+        "lib/net8.0/Microsoft.Extensions.Diagnostics.xml",
+        "lib/net9.0/Microsoft.Extensions.Diagnostics.dll",
+        "lib/net9.0/Microsoft.Extensions.Diagnostics.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.xml",
+        "microsoft.extensions.diagnostics.10.0.0.nupkg.sha512",
+        "microsoft.extensions.diagnostics.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -2897,6 +3053,64 @@
         "lib/netstandard2.1/Volo.Abp.Auditing.Contracts.xml",
         "volo.abp.auditing.contracts.10.0.0.nupkg.sha512",
         "volo.abp.auditing.contracts.nuspec"
+      ]
+    },
+    "Volo.Abp.Authorization/10.0.0": {
+      "sha512": "91x7gu7c5NH5iSecwavY9FxQm/WVkc9VCjyI8N2M+LuRC7iBBPsPpUWoU+p+UqyU1QJzKSA8EX5O53dd29qOIA==",
+      "type": "package",
+      "path": "volo.abp.authorization/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NuGet.md",
+        "content/Volo.Abp.Authorization.abppkg",
+        "content/Volo.Abp.Authorization.abppkg.analyze.json",
+        "lib/net10.0/Volo.Abp.Authorization.dll",
+        "lib/net10.0/Volo.Abp.Authorization.pdb",
+        "lib/net10.0/Volo.Abp.Authorization.xml",
+        "lib/net8.0/Volo.Abp.Authorization.dll",
+        "lib/net8.0/Volo.Abp.Authorization.pdb",
+        "lib/net8.0/Volo.Abp.Authorization.xml",
+        "lib/net9.0/Volo.Abp.Authorization.dll",
+        "lib/net9.0/Volo.Abp.Authorization.pdb",
+        "lib/net9.0/Volo.Abp.Authorization.xml",
+        "lib/netstandard2.0/Volo.Abp.Authorization.dll",
+        "lib/netstandard2.0/Volo.Abp.Authorization.pdb",
+        "lib/netstandard2.0/Volo.Abp.Authorization.xml",
+        "lib/netstandard2.1/Volo.Abp.Authorization.dll",
+        "lib/netstandard2.1/Volo.Abp.Authorization.pdb",
+        "lib/netstandard2.1/Volo.Abp.Authorization.xml",
+        "volo.abp.authorization.10.0.0.nupkg.sha512",
+        "volo.abp.authorization.nuspec"
+      ]
+    },
+    "Volo.Abp.Authorization.Abstractions/10.0.0": {
+      "sha512": "oN6Kv4g9p9jXQE6e08v02jSz2sJTuk6sZ1bDm1QMFReSaGBg7Qdy/zM9tjifexCqLcnL4wuEQdlm+Q8Nx3pIIg==",
+      "type": "package",
+      "path": "volo.abp.authorization.abstractions/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NuGet.md",
+        "content/Volo.Abp.Authorization.Abstractions.abppkg",
+        "content/Volo.Abp.Authorization.Abstractions.abppkg.analyze.json",
+        "lib/net10.0/Volo.Abp.Authorization.Abstractions.dll",
+        "lib/net10.0/Volo.Abp.Authorization.Abstractions.pdb",
+        "lib/net10.0/Volo.Abp.Authorization.Abstractions.xml",
+        "lib/net8.0/Volo.Abp.Authorization.Abstractions.dll",
+        "lib/net8.0/Volo.Abp.Authorization.Abstractions.pdb",
+        "lib/net8.0/Volo.Abp.Authorization.Abstractions.xml",
+        "lib/net9.0/Volo.Abp.Authorization.Abstractions.dll",
+        "lib/net9.0/Volo.Abp.Authorization.Abstractions.pdb",
+        "lib/net9.0/Volo.Abp.Authorization.Abstractions.xml",
+        "lib/netstandard2.0/Volo.Abp.Authorization.Abstractions.dll",
+        "lib/netstandard2.0/Volo.Abp.Authorization.Abstractions.pdb",
+        "lib/netstandard2.0/Volo.Abp.Authorization.Abstractions.xml",
+        "lib/netstandard2.1/Volo.Abp.Authorization.Abstractions.dll",
+        "lib/netstandard2.1/Volo.Abp.Authorization.Abstractions.pdb",
+        "lib/netstandard2.1/Volo.Abp.Authorization.Abstractions.xml",
+        "volo.abp.authorization.abstractions.10.0.0.nupkg.sha512",
+        "volo.abp.authorization.abstractions.nuspec"
       ]
     },
     "Volo.Abp.BackgroundWorkers/10.0.0": {

@@ -2577,6 +2577,7 @@
       },
       "YANEDGE.EmailManagement.Domain.Shared/1.0.0": {
         "dependencies": {
+          "Volo.Abp.Authorization": "10.0.0",
           "Volo.Abp.Core": "10.0.0",
           "Volo.Abp.Ddd.Domain": "10.0.0",
           "Volo.Abp.Ddd.Domain.Shared": "10.0.0",

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -17,6 +18,10 @@ public class RuleExecutionJob : ITransientDependency
     private readonly IRuleMatchingService _ruleMatchingService;
     private readonly ILogger<RuleExecutionJob> _logger;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
+
+    private const string JobName = "RuleExecution";
+    private const int LookbackHours = 1; // 处理最近1小时的邮件
+    private const int MaxMessagesPerRun = 100; // 每次最多处理100封邮件
 
     public RuleExecutionJob(
         IMailMessageRepository messageRepository,
@@ -38,7 +43,12 @@ public class RuleExecutionJob : ITransientDependency
     /// </summary>
     public async Task ExecuteAsync()
     {
-        _logger.LogInformation("规则执行任务开始...");
+        var stopwatch = Stopwatch.StartNew();
+        _logger.LogInformation("[{JobName}] 规则执行任务开始...", JobName);
+
+        var processedCount = 0;
+        var failedCount = 0;
+        var totalMessages = 0;
 
         try
         {
@@ -49,44 +59,73 @@ public class RuleExecutionJob : ITransientDependency
 
             if (!activeRules.Any())
             {
-                _logger.LogInformation("没有激活的规则，跳过执行");
+                _logger.LogInformation("[{JobName}] 没有激活的规则，跳过执行", JobName);
                 await uow.CompleteAsync();
                 return;
             }
 
-            _logger.LogInformation("找到 {Count} 个激活的规则", activeRules.Count);
+            _logger.LogInformation("[{JobName}] 找到 {Count} 个激活的规则", JobName, activeRules.Count);
 
-            // 获取最近未处理的邮件（例如最近1小时内收到的）
+            // 获取最近未处理的邮件
+            var cutoffTime = DateTime.UtcNow.AddHours(-LookbackHours);
             var recentMessages = await _messageRepository.GetListAsync();
             var unprocessedMessages = recentMessages
-                .Where(m => m.ReceivedTime.HasValue && m.ReceivedTime.Value >= DateTime.UtcNow.AddHours(-1))
+                .Where(m => m.ReceivedTime.HasValue && m.ReceivedTime.Value >= cutoffTime)
+                .OrderByDescending(m => m.ReceivedTime)
+                .Take(MaxMessagesPerRun)
                 .ToList();
 
-            _logger.LogInformation("找到 {Count} 个待处理邮件", unprocessedMessages.Count);
+            totalMessages = unprocessedMessages.Count;
 
-            var processedCount = 0;
+            if (totalMessages == 0)
+            {
+                _logger.LogInformation("[{JobName}] 没有待处理邮件", JobName);
+                await uow.CompleteAsync();
+                return;
+            }
+
+            _logger.LogInformation("[{JobName}] 找到 {Count} 个待处理邮件（最近 {Hours} 小时）",
+                JobName, totalMessages, LookbackHours);
 
             foreach (var message in unprocessedMessages)
             {
                 try
                 {
+                    _logger.LogDebug("[{JobName}] 开始处理邮件: {MessageId}, 主题: {Subject}",
+                        JobName, message.Id, message.Subject);
+
                     await _ruleMatchingService.ExecuteMatchingRulesAsync(activeRules, message);
                     processedCount++;
-                    _logger.LogDebug("邮件规则处理完成: {MessageId}", message.Id);
+
+                    _logger.LogDebug("[{JobName}] 邮件规则处理完成: {MessageId}", JobName, message.Id);
+                }
+                catch (OperationCanceledException)
+                {
+                    failedCount++;
+                    _logger.LogWarning("[{JobName}] 邮件规则处理已取消: {MessageId}", JobName, message.Id);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "邮件规则处理失败: {MessageId}", message.Id);
+                    failedCount++;
+                    _logger.LogError(ex, "[{JobName}] 邮件规则处理失败: {MessageId}", JobName, message.Id);
+                    // 继续处理下一封邮件
                 }
             }
 
             await uow.CompleteAsync();
 
-            _logger.LogInformation("规则执行任务完成。处理邮件数: {Count}", processedCount);
+            stopwatch.Stop();
+            var successRate = totalMessages > 0 ? (double)processedCount / totalMessages * 100 : 0;
+
+            _logger.LogInformation(
+                "[{JobName}] 规则执行任务完成。总计: {Total}, 成功: {Success}, 失败: {Failed}, 成功率: {Rate:F2}%, 耗时: {Duration}ms",
+                JobName, totalMessages, processedCount, failedCount, successRate, stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "规则执行任务出错");
+            stopwatch.Stop();
+            _logger.LogError(ex, "[{JobName}] 规则执行任务出错，耗时: {Duration}ms",
+                JobName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }

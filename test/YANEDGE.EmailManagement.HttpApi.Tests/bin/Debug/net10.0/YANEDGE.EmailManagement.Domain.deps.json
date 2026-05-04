@@ -52,6 +52,28 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authorization/10.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "10.0.0",
+          "Microsoft.Extensions.Diagnostics": "10.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0",
+          "Microsoft.Extensions.Options": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Authorization.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.25.52411"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/10.0.0": {
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Metadata.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.25.52411"
+          }
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/10.0.0": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -216,6 +238,19 @@
       "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.0": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.25.52411"
+          }
+        }
+      },
+      "Microsoft.Extensions.Diagnostics/10.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "10.0.0",
+          "Microsoft.Extensions.Diagnostics.Abstractions": "10.0.0",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Diagnostics.dll": {
             "assemblyVersion": "10.0.0.0",
             "fileVersion": "10.0.25.52411"
           }
@@ -508,6 +543,32 @@
         },
         "runtime": {
           "lib/net10.0/Volo.Abp.Auditing.Contracts.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "Volo.Abp.Authorization/10.0.0": {
+        "dependencies": {
+          "Volo.Abp.Authorization.Abstractions": "10.0.0",
+          "Volo.Abp.Localization": "10.0.0",
+          "Volo.Abp.MultiTenancy": "10.0.0",
+          "Volo.Abp.Security": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Volo.Abp.Authorization.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "Volo.Abp.Authorization.Abstractions/10.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authorization": "10.0.0",
+          "Volo.Abp.MultiTenancy.Abstractions": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Volo.Abp.Authorization.Abstractions.dll": {
             "assemblyVersion": "10.0.0.0",
             "fileVersion": "10.0.0.0"
           }
@@ -903,6 +964,7 @@
       },
       "YANEDGE.EmailManagement.Domain.Shared/1.0.0": {
         "dependencies": {
+          "Volo.Abp.Authorization": "10.0.0",
           "Volo.Abp.Core": "10.0.0",
           "Volo.Abp.Ddd.Domain": "10.0.0",
           "Volo.Abp.Ddd.Domain.Shared": "10.0.0",
@@ -951,6 +1013,20 @@
       "sha512": "sha512-trJ82DOpAmo8i1jO1vNE+dGn4mPRyeYfy4swRcAGgMJhPoI1Kohf4OFJJf0+YIj4iUxgxPn8W+ht7e7KiYzSjg==",
       "path": "mailkit/4.16.0",
       "hashPath": "mailkit.4.16.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authorization/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8qUwBAtUj9kX8RwqEPGJu3zGM/GlwF2bR9gsxk/+kiSmCB6aDYlYF7E2gM9VOYS9NDF6zxTSEgJxwD9kFbu8Sw==",
+      "path": "microsoft.aspnetcore.authorization/10.0.0",
+      "hashPath": "microsoft.aspnetcore.authorization.10.0.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Metadata/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uMXReBNxJKabrdoxHn4LNDTlGQFGDPtntlVvqo/b0HaxJzeDAIMFXJJ64mufJCNRuQU/Pus8ngcTZErvnsh7vg==",
+      "path": "microsoft.aspnetcore.metadata/10.0.0",
+      "hashPath": "microsoft.aspnetcore.metadata.10.0.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/10.0.0": {
       "type": "package",
@@ -1049,6 +1125,13 @@
       "sha512": "sha512-L3AdmZ1WOK4XXT5YFPEwyt0ep6l8lGIPs7F5OOBZc77Zqeo01Of7XXICy47628sdVl0v/owxYJTe86DTgFwKCA==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Diagnostics/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xjkxIPgrT0mKTfBwb+CVqZnRchyZgzKIfDQOp8z+WUC6vPe3WokIf71z+hJPkH0YBUYJwa7Z/al1R087ib9oiw==",
+      "path": "microsoft.extensions.diagnostics/10.0.0",
+      "hashPath": "microsoft.extensions.diagnostics.10.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Diagnostics.Abstractions/10.0.0": {
       "type": "package",
@@ -1224,6 +1307,20 @@
       "sha512": "sha512-+j1qhhINmSPCAXX0JREmo96O7+A0a8j6Uv/vbLYa32F+R0Tn6oa8l6ATS3bLpR2HCr2RWaJlMzpBZkWrI8y+dQ==",
       "path": "volo.abp.auditing.contracts/10.0.0",
       "hashPath": "volo.abp.auditing.contracts.10.0.0.nupkg.sha512"
+    },
+    "Volo.Abp.Authorization/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-91x7gu7c5NH5iSecwavY9FxQm/WVkc9VCjyI8N2M+LuRC7iBBPsPpUWoU+p+UqyU1QJzKSA8EX5O53dd29qOIA==",
+      "path": "volo.abp.authorization/10.0.0",
+      "hashPath": "volo.abp.authorization.10.0.0.nupkg.sha512"
+    },
+    "Volo.Abp.Authorization.Abstractions/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oN6Kv4g9p9jXQE6e08v02jSz2sJTuk6sZ1bDm1QMFReSaGBg7Qdy/zM9tjifexCqLcnL4wuEQdlm+Q8Nx3pIIg==",
+      "path": "volo.abp.authorization.abstractions/10.0.0",
+      "hashPath": "volo.abp.authorization.abstractions.10.0.0.nupkg.sha512"
     },
     "Volo.Abp.BackgroundWorkers/10.0.0": {
       "type": "package",

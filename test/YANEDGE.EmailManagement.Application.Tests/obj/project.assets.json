@@ -1211,6 +1211,22 @@
           }
         }
       },
+      "NSubstitute/5.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "5.1.1"
+        },
+        "compile": {
+          "lib/net6.0/NSubstitute.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/NSubstitute.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Shouldly/4.2.1": {
         "type": "package",
         "dependencies": {
@@ -2276,6 +2292,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Volo.Abp.Authorization": "10.0.0",
           "Volo.Abp.Core": "10.0.0",
           "Volo.Abp.Ddd.Domain": "10.0.0",
           "Volo.Abp.Ddd.Domain.Shared": "10.0.0",
@@ -4063,6 +4080,24 @@
         "postgresql.png"
       ]
     },
+    "NSubstitute/5.3.0": {
+      "sha512": "lJ47Cps5Qzr86N99lcwd+OUvQma7+fBgr8+Mn+aOC0WrlqMNkdivaYD9IvnZ5Mqo6Ky3LS7ZI+tUq1/s9ERd0Q==",
+      "type": "package",
+      "path": "nsubstitute/5.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net462/NSubstitute.dll",
+        "lib/net462/NSubstitute.xml",
+        "lib/net6.0/NSubstitute.dll",
+        "lib/net6.0/NSubstitute.xml",
+        "lib/netstandard2.0/NSubstitute.dll",
+        "lib/netstandard2.0/NSubstitute.xml",
+        "nsubstitute.5.3.0.nupkg.sha512",
+        "nsubstitute.nuspec"
+      ]
+    },
     "Shouldly/4.2.1": {
       "sha512": "dKAKiSuhLKqD2TXwLKtqNg1nwzJcIKOOMncZjk9LYe4W+h+SCftpWdxwR79YZUIHMH+3Vu9s0s0UHNrgICLwRQ==",
       "type": "package",
@@ -5680,6 +5715,7 @@
       "Microsoft.EntityFrameworkCore.InMemory >= 10.0.0",
       "Microsoft.NET.Test.Sdk >= 17.11.0",
       "Moq >= 4.20.70",
+      "NSubstitute >= 5.3.0",
       "Shouldly >= 4.2.1",
       "Volo.Abp.TestBase >= 10.0.0",
       "YANEDGE.EmailManagement.Application >= 1.0.0",
@@ -5750,6 +5786,10 @@
           "Moq": {
             "target": "Package",
             "version": "[4.20.70, )"
+          },
+          "NSubstitute": {
+            "target": "Package",
+            "version": "[5.3.0, )"
           },
           "Shouldly": {
             "target": "Package",

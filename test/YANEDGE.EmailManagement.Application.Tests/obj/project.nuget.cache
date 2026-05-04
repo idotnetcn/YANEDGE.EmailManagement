@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Zbbjs/O4VRo=",
+  "dgSpecHash": "BuVOTINpfes=",
   "success": true,
   "projectFilePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Application.Tests/YANEDGE.EmailManagement.Application.Tests.csproj",
   "expectedPackageFiles": [
@@ -61,6 +61,7 @@
     "/home/runner/.nuget/packages/nito.disposables/2.2.1/nito.disposables.2.2.1.nupkg.sha512",
     "/home/runner/.nuget/packages/npgsql/9.0.3/npgsql.9.0.3.nupkg.sha512",
     "/home/runner/.nuget/packages/npgsql.entityframeworkcore.postgresql/10.0.0-rc.1/npgsql.entityframeworkcore.postgresql.10.0.0-rc.1.nupkg.sha512",
+    "/home/runner/.nuget/packages/nsubstitute/5.3.0/nsubstitute.5.3.0.nupkg.sha512",
     "/home/runner/.nuget/packages/shouldly/4.2.1/shouldly.4.2.1.nupkg.sha512",
     "/home/runner/.nuget/packages/system.codedom/10.0.0/system.codedom.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.diagnostics.eventlog/6.0.0/system.diagnostics.eventlog.6.0.0.nupkg.sha512",

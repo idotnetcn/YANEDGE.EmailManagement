@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Users;
 using YANEDGE.EmailManagement.Application.Contracts.MailThread;
@@ -5,12 +6,14 @@ using YANEDGE.EmailManagement.Domain.MailThread;
 using YANEDGE.EmailManagement.Domain.Collaboration;
 using YANEDGE.EmailManagement.Enums;
 using YANEDGE.EmailManagement.Services.Cache;
+using YANEDGE.EmailManagement.Permissions;
 
 namespace YANEDGE.EmailManagement.Application.MailThread;
 
 /// <summary>
 /// 邮件线程应用服务
 /// </summary>
+[Authorize(EmailManagementPermissions.Threads.Default)]
 public class MailThreadAppService : ApplicationService, IMailThreadAppService
 {
     private readonly IMailThreadRepository _mailThreadRepository;
