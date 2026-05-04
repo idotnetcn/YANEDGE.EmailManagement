@@ -8,4 +8,9 @@
     <Project Path="src/YANEDGE.EmailManagement.HttpApi.Host/YANEDGE.EmailManagement.HttpApi.Host.csproj" />
     <Project Path="src/YANEDGE.EmailManagement.HttpApi/YANEDGE.EmailManagement.HttpApi.csproj" />
   </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/YANEDGE.EmailManagement.Domain.Tests/YANEDGE.EmailManagement.Domain.Tests.csproj" />
+    <Project Path="test/YANEDGE.EmailManagement.Application.Tests/YANEDGE.EmailManagement.Application.Tests.csproj" />
+    <Project Path="test/YANEDGE.EmailManagement.HttpApi.Tests/YANEDGE.EmailManagement.HttpApi.Tests.csproj" />
+  </Folder>
 </Solution>
