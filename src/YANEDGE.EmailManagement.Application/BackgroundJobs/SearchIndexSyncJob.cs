@@ -68,7 +68,7 @@ public class SearchIndexSyncJob : ITransientDependency
             {
                 var queryable = await _messageRepository.GetQueryableAsync();
                 var messageIds = queryable
-                    .OrderBy(m => m.CreationTime)
+                    .OrderBy(m => m.Id)
                     .Skip(skipCount)
                     .Take(BatchSize)
                     .Select(m => m.Id)
@@ -137,8 +137,8 @@ public class SearchIndexSyncJob : ITransientDependency
 
             var queryable = await _messageRepository.GetQueryableAsync();
             var messageIds = queryable
-                .Where(m => m.CreationTime >= since)
-                .OrderBy(m => m.CreationTime)
+                .Where(m => m.ReceivedTime >= since || m.SentTime >= since)
+                .OrderBy(m => m.Id)
                 .Select(m => m.Id)
                 .ToList();
 

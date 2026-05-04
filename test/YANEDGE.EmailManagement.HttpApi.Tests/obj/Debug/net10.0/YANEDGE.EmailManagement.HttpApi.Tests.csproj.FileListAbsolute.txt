@@ -596,3 +596,5 @@
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.HttpApi.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.HttpApi.Tests.pdb
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.HttpApi.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.HttpApi.Tests.genruntimeconfig.cache
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.HttpApi.Tests/obj/Debug/net10.0/ref/YANEDGE.EmailManagement.HttpApi.Tests.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.HttpApi.Tests/bin/Debug/net10.0/Elastic.Clients.Elasticsearch.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.HttpApi.Tests/bin/Debug/net10.0/Elastic.Transport.dll

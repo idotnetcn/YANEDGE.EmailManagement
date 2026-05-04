@@ -50,17 +50,17 @@ public class WebhookEventHandler :
 
     public async Task HandleEventAsync(MailMessageSentEvent eventData)
     {
-        await ProcessWebhookAsync("EmailManagement.MailMessage.Sent", eventData.MessageId, eventData);
+        await ProcessWebhookAsync("EmailManagement.MailMessage.Sent", eventData.MessageId ?? eventData.SendTaskId, eventData);
     }
 
     public async Task HandleEventAsync(MailSendTaskCreatedEvent eventData)
     {
-        await ProcessWebhookAsync("EmailManagement.MailSendTask.Created", eventData.TaskId, eventData);
+        await ProcessWebhookAsync("EmailManagement.MailSendTask.Created", eventData.SendTaskId, eventData);
     }
 
     public async Task HandleEventAsync(MailSendTaskFailedEvent eventData)
     {
-        await ProcessWebhookAsync("EmailManagement.MailSendTask.Failed", eventData.TaskId, eventData);
+        await ProcessWebhookAsync("EmailManagement.MailSendTask.Failed", eventData.SendTaskId, eventData);
     }
 
     public async Task HandleEventAsync(MailThreadStatusChangedEvent eventData)

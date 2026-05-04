@@ -64,7 +64,8 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
             var message = await _messageRepository.GetAsync(messageId, cancellationToken: cancellationToken);
             var document = MapToDocument(message);
 
-            var response = await _client!.IndexAsync(document, IndexName, cancellationToken);
+            var response = await _client!.IndexAsync(document, request => request
+                .Index(IndexName), cancellationToken);
 
             if (!response.IsValidResponse)
             {
@@ -170,12 +171,12 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
             // Filters
             if (request.MailAccountId.HasValue)
             {
-                mustQueries.Add(new TermQuery("mailAccountId") { Value = request.MailAccountId.Value });
+                mustQueries.Add(new TermQuery("mailAccountId") { Value = FieldValue.String(request.MailAccountId.Value.ToString()) });
             }
 
             if (request.ThreadId.HasValue)
             {
-                mustQueries.Add(new TermQuery("threadId") { Value = request.ThreadId.Value });
+                mustQueries.Add(new TermQuery("threadId") { Value = FieldValue.String(request.ThreadId.Value.ToString()) });
             }
 
             if (!string.IsNullOrWhiteSpace(request.FromAddress))
@@ -236,7 +237,7 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
 
             var items = searchResponse.Documents.Select((doc, index) =>
             {
-                doc.Score = searchResponse.Hits[index].Score ?? 0;
+                doc.Score = (float)(searchResponse.Hits.ElementAt(index).Score ?? 0);
                 return doc;
             }).ToList();
 
@@ -333,19 +334,19 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
         return new MailSearchDocument
         {
             Id = message.Id,
-            ThreadId = message.ThreadId,
+            ThreadId = message.ThreadId ?? Guid.Empty,
             MailAccountId = message.MailAccountId,
             Subject = message.Subject ?? string.Empty,
             FromAddress = message.FromAddress ?? string.Empty,
-            FromName = message.FromName ?? string.Empty,
-            ToAddresses = ParseEmailList(message.ToAddresses),
-            CcAddresses = ParseEmailList(message.CcAddresses),
-            BodyPreview = TruncateText(message.BodyPlainText ?? message.BodyHtml, 500),
-            BodyText = message.BodyPlainText ?? StripHtml(message.BodyHtml),
-            HasAttachments = message.HasAttachments,
+            FromName = message.FromDisplayName ?? string.Empty,
+            ToAddresses = new List<string>(), // MailMessage doesn't have ToAddresses
+            CcAddresses = new List<string>(), // MailMessage doesn't have CcAddresses
+            BodyPreview = TruncateText(message.TextBody ?? message.SanitizedHtmlBody, 500),
+            BodyText = message.TextBody ?? StripHtml(message.SanitizedHtmlBody),
+            HasAttachments = message.HasAttachment,
             AttachmentNames = new List<string>(), // TODO: Get from attachments
             Labels = new List<string>(), // TODO: Get from labels
-            ReceivedTime = message.ReceivedTime,
+            ReceivedTime = message.ReceivedTime ?? message.SentTime ?? message.CreatedAt,
             IndexedAt = DateTime.UtcNow
         };
     }
@@ -394,12 +395,23 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
                 ? SortOrder.Asc
                 : SortOrder.Desc;
 
-            sortOptions.Add(s => request.SortField.ToLower() switch
+            sortOptions.Add(s =>
             {
-                "subject" => s.Field(f => f.Subject, new FieldSort { Order = sortOrder }),
-                "fromaddress" => s.Field(f => f.FromAddress, new FieldSort { Order = sortOrder }),
-                "receivedtime" => s.Field(f => f.ReceivedTime, new FieldSort { Order = sortOrder }),
-                _ => s.Field(f => f.ReceivedTime, new FieldSort { Order = SortOrder.Desc })
+                switch (request.SortField.ToLower())
+                {
+                    case "subject":
+                        s.Field(f => f.Subject, new FieldSort { Order = sortOrder });
+                        break;
+                    case "fromaddress":
+                        s.Field(f => f.FromAddress, new FieldSort { Order = sortOrder });
+                        break;
+                    case "receivedtime":
+                        s.Field(f => f.ReceivedTime, new FieldSort { Order = sortOrder });
+                        break;
+                    default:
+                        s.Field(f => f.ReceivedTime, new FieldSort { Order = SortOrder.Desc });
+                        break;
+                }
             });
         }
         else
