@@ -1,0 +1,8 @@
+{
+  "YANEDGE.EmailManagement.Application.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/home\/runner\/work\/YANEDGE.EmailManagement\/YANEDGE.EmailManagement\/src\/YANEDGE.EmailManagement.Application.Contracts",
+  "YANEDGE.EmailManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/home\/runner\/work\/YANEDGE.EmailManagement\/YANEDGE.EmailManagement\/src\/YANEDGE.EmailManagement.Application",
+  "YANEDGE.EmailManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/home\/runner\/work\/YANEDGE.EmailManagement\/YANEDGE.EmailManagement\/src\/YANEDGE.EmailManagement.Domain",
+  "YANEDGE.EmailManagement.Domain.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/home\/runner\/work\/YANEDGE.EmailManagement\/YANEDGE.EmailManagement\/src\/YANEDGE.EmailManagement.Domain.Shared",
+  "YANEDGE.EmailManagement.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/home\/runner\/work\/YANEDGE.EmailManagement\/YANEDGE.EmailManagement\/src\/YANEDGE.EmailManagement.EntityFrameworkCore",
+  "YANEDGE.EmailManagement.HttpApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/home\/runner\/work\/YANEDGE.EmailManagement\/YANEDGE.EmailManagement\/src\/YANEDGE.EmailManagement.HttpApi"
+}

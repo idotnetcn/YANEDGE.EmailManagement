@@ -38,18 +38,15 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         };
 
         // Act
-        await WithUnitOfWorkAsync(async () =>
-        {
-            var result = await _mailTemplateAppService.CreateAsync(input);
+        var result = await _mailTemplateAppService.CreateAsync(input);
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.Code.ShouldBe(input.Code);
-            result.Name.ShouldBe(input.Name);
-            result.SubjectTemplate.ShouldBe(input.SubjectTemplate);
-            result.BodyTemplate.ShouldBe(input.BodyTemplate);
-            result.Status.ShouldBe(TemplateStatus.Draft);
-        });
+        // Assert
+        result.ShouldNotBeNull();
+        result.Code.ShouldBe(input.Code);
+        result.Name.ShouldBe(input.Name);
+        result.SubjectTemplate.ShouldBe(input.SubjectTemplate);
+        result.BodyTemplate.ShouldBe(input.BodyTemplate);
+        result.Status.ShouldBe(TemplateStatus.Draft);
     }
 
     [Fact]
@@ -59,16 +56,13 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         var template = await CreateTestTemplateAsync();
 
         // Act
-        await WithUnitOfWorkAsync(async () =>
-        {
-            var result = await _mailTemplateAppService.GetAsync(template.Id);
+        var result = await _mailTemplateAppService.GetAsync(template.Id);
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.Id.ShouldBe(template.Id);
-            result.Code.ShouldBe(template.Code);
-            result.Name.ShouldBe(template.Name);
-        });
+        // Assert
+        result.ShouldNotBeNull();
+        result.Id.ShouldBe(template.Id);
+        result.Code.ShouldBe(template.Code);
+        result.Name.ShouldBe(template.Name);
     }
 
     [Fact]
@@ -78,15 +72,12 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         var template = await CreateTestTemplateAsync();
 
         // Act
-        await WithUnitOfWorkAsync(async () =>
-        {
-            var result = await _mailTemplateAppService.GetByCodeAsync(template.Code);
+        var result = await _mailTemplateAppService.GetByCodeAsync(template.Code);
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.Code.ShouldBe(template.Code);
-            result.Name.ShouldBe(template.Name);
-        });
+        // Assert
+        result.ShouldNotBeNull();
+        result.Code.ShouldBe(template.Code);
+        result.Name.ShouldBe(template.Name);
     }
 
     [Fact]
@@ -104,18 +95,15 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         };
 
         // Act
-        await WithUnitOfWorkAsync(async () =>
-        {
-            var result = await _mailTemplateAppService.UpdateAsync(template.Id, input);
+        var result = await _mailTemplateAppService.UpdateAsync(template.Id, input);
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.Name.ShouldBe(input.Name);
-            result.SubjectTemplate.ShouldBe(input.SubjectTemplate);
-            result.BodyTemplate.ShouldBe(input.BodyTemplate);
-            result.Category.ShouldBe(input.Category);
-            result.Description.ShouldBe(input.Description);
-        });
+        // Assert
+        result.ShouldNotBeNull();
+        result.Name.ShouldBe(input.Name);
+        result.SubjectTemplate.ShouldBe(input.SubjectTemplate);
+        result.BodyTemplate.ShouldBe(input.BodyTemplate);
+        result.Category.ShouldBe(input.Category);
+        result.Description.ShouldBe(input.Description);
     }
 
     [Fact]
@@ -125,17 +113,11 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         var template = await CreateTestTemplateAsync();
 
         // Act
-        await WithUnitOfWorkAsync(async () =>
-        {
-            await _mailTemplateAppService.DeleteAsync(template.Id);
-        });
+        await _mailTemplateAppService.DeleteAsync(template.Id);
 
         // Assert
-        await WithUnitOfWorkAsync(async () =>
-        {
-            var deletedTemplate = await _templateRepository.FindAsync(template.Id);
-            deletedTemplate.ShouldBeNull();
-        });
+        var deletedTemplate = await _templateRepository.FindAsync(template.Id);
+        deletedTemplate.ShouldBeNull();
     }
 
     [Fact]
@@ -145,17 +127,11 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         var template = await CreateTestTemplateAsync();
 
         // Act
-        await WithUnitOfWorkAsync(async () =>
-        {
-            await _mailTemplateAppService.ActivateAsync(template.Id);
-        });
+        await _mailTemplateAppService.ActivateAsync(template.Id);
 
         // Assert
-        await WithUnitOfWorkAsync(async () =>
-        {
-            var updatedTemplate = await _templateRepository.GetAsync(template.Id);
-            updatedTemplate.Status.ShouldBe(TemplateStatus.Active);
-        });
+        var updatedTemplate = await _templateRepository.GetAsync(template.Id);
+        updatedTemplate.Status.ShouldBe(TemplateStatus.Active);
     }
 
     [Fact]
@@ -167,21 +143,18 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         await CreateTestTemplateAsync("TEMPLATE_3", "Another Template", "Category1");
 
         // Act
-        await WithUnitOfWorkAsync(async () =>
+        var input = new GetTemplateListInput
         {
-            var input = new GetTemplateListInput
-            {
-                Category = "Category1",
-                MaxResultCount = 10
-            };
+            Category = "Category1",
+            MaxResultCount = 10
+        };
 
-            var result = await _mailTemplateAppService.GetListAsync(input);
+        var result = await _mailTemplateAppService.GetListAsync(input);
 
-            // Assert
-            result.ShouldNotBeNull();
-            result.TotalCount.ShouldBeGreaterThanOrEqualTo(2);
-            result.Items.ShouldAllBe(x => x.Category == "Category1");
-        });
+        // Assert
+        result.ShouldNotBeNull();
+        result.TotalCount.ShouldBeGreaterThanOrEqualTo(2);
+        result.Items.ShouldAllBe(x => x.Category == "Category1");
     }
 
     private async Task<MailTemplate> CreateTestTemplateAsync(
@@ -189,25 +162,19 @@ public class MailTemplateAppServiceTests : EmailManagementApplicationTestBase
         string name = "Test Template",
         string category = "Test Category")
     {
-        MailTemplate? template = null;
+        var template = new MailTemplate(
+            Guid.NewGuid(),
+            code,
+            name,
+            "Test Subject {{Variable}}",
+            "<p>Test Body {{Content}}</p>",
+            "zh-CN",
+            category,
+            false,
+            "Test Description"
+        );
 
-        await WithUnitOfWorkAsync(async () =>
-        {
-            template = new MailTemplate(
-                Guid.NewGuid(),
-                code,
-                name,
-                "Test Subject {{Variable}}",
-                "<p>Test Body {{Content}}</p>",
-                "zh-CN",
-                category,
-                false,
-                "Test Description"
-            );
-
-            await _templateRepository.InsertAsync(template);
-        });
-
-        return template!;
+        await _templateRepository.InsertAsync(template);
+        return template;
     }
 }

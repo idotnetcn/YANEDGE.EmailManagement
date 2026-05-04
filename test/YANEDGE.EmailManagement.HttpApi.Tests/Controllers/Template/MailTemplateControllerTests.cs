@@ -175,35 +175,26 @@ public class MailTemplateControllerTests : EmailManagementHttpApiTestBase
         string code = "TEST_TEMPLATE",
         string name = "Test Template")
     {
-        MailTemplate? template = null;
+        var template = new MailTemplate(
+            Guid.NewGuid(),
+            code,
+            name,
+            "Test Subject {{Variable}}",
+            "<p>Test Body {{Content}}</p>",
+            "zh-CN",
+            "Test Category",
+            false,
+            "Test Description"
+        );
 
-        await WithUnitOfWorkAsync(async () =>
-        {
-            template = new MailTemplate(
-                Guid.NewGuid(),
-                code,
-                name,
-                "Test Subject {{Variable}}",
-                "<p>Test Body {{Content}}</p>",
-                "zh-CN",
-                "Test Category",
-                false,
-                "Test Description"
-            );
-
-            await _templateRepository.InsertAsync(template);
-        });
-
-        return template!;
+        await _templateRepository.InsertAsync(template);
+        return template;
     }
 
     private async Task ActivateTemplateAsync(Guid templateId)
     {
-        await WithUnitOfWorkAsync(async () =>
-        {
-            var template = await _templateRepository.GetAsync(templateId);
-            template.Activate();
-            await _templateRepository.UpdateAsync(template);
-        });
+        var template = await _templateRepository.GetAsync(templateId);
+        template.Activate();
+        await _templateRepository.UpdateAsync(template);
     }
 }
