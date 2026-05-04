@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[10.0.0, )"
             },
+            "Volo.Abp.EventBus": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
             "Volo.Abp.Localization": {
               "target": "Package",
               "version": "[10.0.0, )"
@@ -410,6 +414,10 @@
             "MailKit": {
               "target": "Package",
               "version": "[4.16.0, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[10.0.0, )"
             },
             "Volo.Abp.Ddd.Domain": {
               "target": "Package",

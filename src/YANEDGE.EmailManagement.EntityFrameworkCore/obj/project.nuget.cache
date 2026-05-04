@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qanJ2ko7vCI=",
+  "dgSpecHash": "lhk4KgyzGgo=",
   "success": true,
   "projectFilePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.EntityFrameworkCore/YANEDGE.EmailManagement.EntityFrameworkCore.csproj",
   "expectedPackageFiles": [
@@ -36,6 +36,7 @@
     "/home/runner/.nuget/packages/microsoft.extensions.fileproviders.physical/10.0.0/microsoft.extensions.fileproviders.physical.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.filesystemglobbing/10.0.0/microsoft.extensions.filesystemglobbing.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.hosting.abstractions/10.0.0/microsoft.extensions.hosting.abstractions.10.0.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.extensions.http/10.0.0/microsoft.extensions.http.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.localization/10.0.0/microsoft.extensions.localization.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.localization.abstractions/10.0.0/microsoft.extensions.localization.abstractions.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.logging/10.0.0/microsoft.extensions.logging.10.0.0.nupkg.sha512",

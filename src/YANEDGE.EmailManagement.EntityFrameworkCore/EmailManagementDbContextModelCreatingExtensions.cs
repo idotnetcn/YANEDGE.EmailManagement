@@ -14,6 +14,7 @@ using YANEDGE.EmailManagement.Domain.Rule;
 using YANEDGE.EmailManagement.Domain.Attachment;
 using YANEDGE.EmailManagement.Domain.Contact;
 using YANEDGE.EmailManagement.Domain.BusinessRelation;
+using YANEDGE.EmailManagement.Domain.Webhook;
 
 namespace YANEDGE.EmailManagement.EntityFrameworkCore;
 
@@ -315,6 +316,59 @@ public static class EmailManagementDbContextModelCreatingExtensions
             b.HasIndex(x => x.ThreadId);
             b.HasIndex(x => new { x.BusinessObjectType, x.BusinessObjectId });
             b.HasIndex(x => x.IsPrimary);
+        });
+
+        // Webhook Management
+        builder.Entity<WebhookSubscription>(b =>
+        {
+            b.ToTable("WebhookSubscriptions");
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Name).IsRequired().HasMaxLength(200);
+            b.Property(x => x.Url).IsRequired().HasMaxLength(2000);
+            b.Property(x => x.Secret).IsRequired().HasMaxLength(200);
+            b.Property(x => x.Description).HasMaxLength(1000);
+            b.Property(x => x.RetryPolicy).HasMaxLength(1000);
+
+            b.Property(x => x.SubscribedEvents)
+                .IsRequired()
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions?)null) ?? new List<string>(),
+                    new ValueComparer<List<string>>(
+                        (c1, c2) => c1!.SequenceEqual(c2!),
+                        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                        c => c.ToList()))
+                .HasColumnType("jsonb");
+
+            b.Property(x => x.Headers)
+                .HasConversion(
+                    v => v == null ? null : JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => v == null ? null : JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions?)null),
+                    new ValueComparer<Dictionary<string, string>?>(
+                        (c1, c2) => c1 == c2 || (c1 != null && c2 != null && c1.SequenceEqual(c2)),
+                        c => c == null ? 0 : c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                        c => c == null ? null : new Dictionary<string, string>(c)))
+                .HasColumnType("jsonb");
+
+            b.HasIndex(x => x.IsActive).HasFilter("[IsActive] = true");
+        });
+
+        builder.Entity<WebhookDeliveryLog>(b =>
+        {
+            b.ToTable("WebhookDeliveryLogs");
+            b.ConfigureByConvention();
+
+            b.Property(x => x.EventType).IsRequired().HasMaxLength(200);
+            b.Property(x => x.Url).IsRequired().HasMaxLength(2000);
+            b.Property(x => x.Payload).IsRequired();
+            b.Property(x => x.ErrorMessage).HasMaxLength(2000);
+
+            b.HasIndex(x => x.SubscriptionId);
+            b.HasIndex(x => x.EventId);
+            b.HasIndex(x => x.EventType);
+            b.HasIndex(x => new { x.DeliveryStatus, x.NextRetryTime });
+            b.HasIndex(x => x.CreationTime);
         });
     }
 }

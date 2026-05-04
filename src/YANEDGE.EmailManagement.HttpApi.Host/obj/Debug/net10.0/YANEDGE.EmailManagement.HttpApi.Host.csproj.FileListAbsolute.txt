@@ -324,3 +324,5 @@
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/Pipelines.Sockets.Unofficial.dll
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/StackExchange.Redis.dll
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/Volo.Abp.Caching.StackExchangeRedis.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/Elastic.Clients.Elasticsearch.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/Elastic.Transport.dll

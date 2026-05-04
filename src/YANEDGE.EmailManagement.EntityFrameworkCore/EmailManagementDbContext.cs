@@ -13,6 +13,7 @@ using YANEDGE.EmailManagement.Domain.Rule;
 using YANEDGE.EmailManagement.Domain.Attachment;
 using YANEDGE.EmailManagement.Domain.Contact;
 using YANEDGE.EmailManagement.Domain.BusinessRelation;
+using YANEDGE.EmailManagement.Domain.Webhook;
 
 namespace YANEDGE.EmailManagement.EntityFrameworkCore;
 
@@ -48,6 +49,10 @@ public class EmailManagementDbContext : AbpDbContext<EmailManagementDbContext>
 
     // Business Relations
     public DbSet<MailBusinessRelation> MailBusinessRelations { get; set; } = null!;
+
+    // Webhook Management
+    public DbSet<WebhookSubscription> WebhookSubscriptions { get; set; } = null!;
+    public DbSet<WebhookDeliveryLog> WebhookDeliveryLogs { get; set; } = null!;
 
     public EmailManagementDbContext(DbContextOptions<EmailManagementDbContext> options)
         : base(options)

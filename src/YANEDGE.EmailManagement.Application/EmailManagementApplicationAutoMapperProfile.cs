@@ -22,6 +22,8 @@ using YANEDGE.EmailManagement.Domain.Rule;
 using YANEDGE.EmailManagement.Domain.Attachment;
 using YANEDGE.EmailManagement.Domain.Contact;
 using YANEDGE.EmailManagement.Domain.BusinessRelation;
+using YANEDGE.EmailManagement.Domain.Webhook;
+using YANEDGE.EmailManagement.Webhook;
 
 namespace YANEDGE.EmailManagement;
 
@@ -155,5 +157,8 @@ public class EmailManagementApplicationAutoMapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.CreationTime, opt => opt.Ignore())
             .ForMember(dest => dest.CreatorId, opt => opt.Ignore());
+
+        // WebhookSubscription mappings
+        CreateMap<WebhookSubscription, WebhookSubscriptionDto>();
     }
 }
