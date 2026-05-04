@@ -86,7 +86,7 @@ public class MailRuleTests : EmailManagementDomainTestBase
     {
         // Arrange
         var rule = CreateTestRule();
-        var conditionType = RuleConditionType.SenderContains;
+        var conditionType = RuleConditionType.SenderAddress;
         var value = "important@example.com";
 
         // Act
@@ -106,7 +106,7 @@ public class MailRuleTests : EmailManagementDomainTestBase
         var rule = CreateTestRule();
 
         // Act
-        rule.AddCondition(RuleConditionType.SenderContains, "sender@example.com");
+        rule.AddCondition(RuleConditionType.SenderAddress, "sender@example.com");
         rule.AddCondition(RuleConditionType.SubjectContains, "urgent");
         rule.AddCondition(RuleConditionType.BodyContains, "important");
 
@@ -119,7 +119,7 @@ public class MailRuleTests : EmailManagementDomainTestBase
     {
         // Arrange
         var rule = CreateTestRule();
-        rule.AddCondition(RuleConditionType.SenderContains, "test@example.com");
+        rule.AddCondition(RuleConditionType.SenderAddress, "test@example.com");
         rule.AddCondition(RuleConditionType.SubjectContains, "test");
 
         // Act
@@ -155,8 +155,8 @@ public class MailRuleTests : EmailManagementDomainTestBase
 
         // Act
         rule.AddAction(RuleActionType.AddLabel, "{\"labelId\":\"1\"}");
-        rule.AddAction(RuleActionType.MarkAsRead, null);
-        rule.AddAction(RuleActionType.Forward, "{\"to\":\"forward@example.com\"}");
+        rule.AddAction(RuleActionType.MarkImportant, null);
+        rule.AddAction(RuleActionType.AutoAssign, "{\"to\":\"forward@example.com\"}");
 
         // Assert
         rule.Actions.Count.ShouldBe(3);
@@ -168,7 +168,7 @@ public class MailRuleTests : EmailManagementDomainTestBase
         // Arrange
         var rule = CreateTestRule();
         rule.AddAction(RuleActionType.AddLabel, "{\"labelId\":\"1\"}");
-        rule.AddAction(RuleActionType.MarkAsRead, null);
+        rule.AddAction(RuleActionType.MarkImportant, null);
 
         // Act
         rule.ClearActions();

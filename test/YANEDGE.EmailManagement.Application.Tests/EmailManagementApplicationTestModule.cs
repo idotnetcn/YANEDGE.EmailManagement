@@ -16,9 +16,6 @@ public class EmailManagementApplicationTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // Use in-memory SQLite database for testing
-        context.Services.AddEntityFrameworkInMemoryDatabase();
-
         var databaseName = Guid.NewGuid().ToString();
 
         Configure<AbpDbContextOptions>(options =>

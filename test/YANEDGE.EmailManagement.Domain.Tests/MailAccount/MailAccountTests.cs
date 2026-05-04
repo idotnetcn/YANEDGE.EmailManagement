@@ -20,7 +20,7 @@ public class MailAccountTests : EmailManagementDomainTestBase
         var incomingHost = "imap.example.com";
         var incomingPort = 993;
         var incomingSslEnabled = true;
-        var outgoingProtocol = MailProtocol.SMTP;
+        var outgoingProtocol = MailProtocol.IMAP;
         var outgoingHost = "smtp.example.com";
         var outgoingPort = 465;
         var outgoingSslEnabled = true;
@@ -179,7 +179,7 @@ public class MailAccountTests : EmailManagementDomainTestBase
             "imap.example.com",
             993,
             true,
-            MailProtocol.SMTP,
+            MailProtocol.IMAP,
             "smtp.example.com",
             465,
             true,
