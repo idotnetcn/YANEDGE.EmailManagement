@@ -45,4 +45,14 @@ public class MailMessageRepository : EfCoreRepository<EmailManagementDbContext, 
             .Take(maxResultCount)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<List<MailMessage>> GetListByIdsAsync(
+        List<Guid> ids,
+        CancellationToken cancellationToken = default)
+    {
+        var dbSet = await GetDbSetAsync();
+        return await dbSet
+            .Where(x => ids.Contains(x.Id))
+            .ToListAsync(cancellationToken);
+    }
 }

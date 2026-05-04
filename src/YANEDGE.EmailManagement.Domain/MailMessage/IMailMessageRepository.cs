@@ -29,4 +29,11 @@ public interface IMailMessageRepository : IRepository<MailMessage, Guid>
         int skipCount,
         int maxResultCount,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 按ID列表批量查询邮件
+    /// </summary>
+    Task<List<MailMessage>> GetListByIdsAsync(
+        List<Guid> ids,
+        CancellationToken cancellationToken = default);
 }
