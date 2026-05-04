@@ -31,4 +31,22 @@ public interface IMailThreadRepository : IRepository<MailThread, Guid>
         string normalizedSubject,
         DateTime timeWindowStart,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get paginated thread list with optimized projection (no tracking)
+    /// Returns lightweight DTOs for list views
+    /// </summary>
+    Task<(List<MailThread> threads, long totalCount)> GetPagedListAsync(
+        Guid? mailAccountId = null,
+        ThreadStatus? status = null,
+        Guid? assigneeId = null,
+        bool? hasAttachment = null,
+        int skipCount = 0,
+        int maxResultCount = 20,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get thread by ID with no tracking for read-only scenarios
+    /// </summary>
+    Task<MailThread?> GetWithoutTrackingAsync(Guid id, CancellationToken cancellationToken = default);
 }
