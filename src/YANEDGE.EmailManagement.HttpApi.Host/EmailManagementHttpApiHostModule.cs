@@ -2,10 +2,15 @@ using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.PostgreSql;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
+using Volo.Abp.Caching;
+using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using YANEDGE.EmailManagement.Application.BackgroundJobs;
@@ -20,6 +25,7 @@ namespace YANEDGE.EmailManagement;
     typeof(AbpAspNetCoreMvcModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
+    typeof(AbpCachingStackExchangeRedisModule),
     typeof(EmailManagementApplicationModule),
     typeof(EmailManagementEntityFrameworkCoreModule),
     typeof(EmailManagementHttpApiModule)
@@ -31,10 +37,21 @@ public class EmailManagementHttpApiHostModule : AbpModule
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
+        ConfigureCaching(context, configuration);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
         ConfigureHangfire(context, configuration);
         ConfigureHealthChecks(context, configuration);
+        ConfigureOpenTelemetry(context, configuration, hostingEnvironment);
+    }
+
+    private void ConfigureCaching(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        Configure<AbpDistributedCacheOptions>(options =>
+        {
+            // Enable distributed cache with Redis
+            options.HideErrors = false; // Show cache errors in development
+        });
     }
 
     private void ConfigureHangfire(ServiceConfigurationContext context, IConfiguration configuration)
@@ -121,7 +138,62 @@ public class EmailManagementHttpApiHostModule : AbpModule
                     return HealthCheckResult.Unhealthy("Database health check failed", ex);
                 }
             },
-            tags: new[] { "db", "postgresql" });
+            tags: new[] { "db", "postgresql" })
+            .AddCheck("redis", () =>
+            {
+                try
+                {
+                    using var scope = context.Services.BuildServiceProvider().CreateScope();
+                    var cache = scope.ServiceProvider.GetRequiredService<IDistributedCache<object>>();
+                    // Simple connectivity check - try to set and get a test value
+                    var testKey = "healthcheck";
+                    cache.Set(testKey, new object());
+                    var result = cache.Get(testKey);
+                    return result != null
+                        ? HealthCheckResult.Healthy("Redis connection successful")
+                        : HealthCheckResult.Degraded("Redis connection degraded");
+                }
+                catch (Exception ex)
+                {
+                    return HealthCheckResult.Unhealthy("Redis health check failed", ex);
+                }
+            },
+            tags: new[] { "cache", "redis" });
+    }
+
+    private void ConfigureOpenTelemetry(ServiceConfigurationContext context, IConfiguration configuration, IWebHostEnvironment environment)
+    {
+        var serviceName = "EmailManagement";
+        var serviceVersion = "1.0.0";
+
+        context.Services.AddOpenTelemetry()
+            .ConfigureResource(resource => resource
+                .AddService(serviceName: serviceName, serviceVersion: serviceVersion)
+                .AddAttributes(new Dictionary<string, object>
+                {
+                    ["environment"] = environment.EnvironmentName,
+                    ["host.name"] = Environment.MachineName
+                }))
+            .WithTracing(tracing => tracing
+                .AddAspNetCoreInstrumentation(options =>
+                {
+                    options.RecordException = true;
+                    options.Filter = httpContext =>
+                    {
+                        // Don't trace health check endpoints
+                        var path = httpContext.Request.Path.Value;
+                        return !path.StartsWith("/health");
+                    };
+                })
+                .AddHttpClientInstrumentation()
+                .AddSource("YANEDGE.EmailManagement")
+                .AddConsoleExporter()) // In production, use OTLP exporter to send to monitoring system
+            .WithMetrics(metrics => metrics
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddMeter("YANEDGE.EmailManagement")
+                .AddConsoleExporter()); // In production, use OTLP exporter
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -181,7 +253,7 @@ public class EmailManagementHttpApiHostModule : AbpModule
             // 就绪检查
             endpoints.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
             {
-                Predicate = check => check.Tags.Contains("db") || check.Tags.Contains("hangfire")
+                Predicate = check => check.Tags.Contains("db") || check.Tags.Contains("cache") || check.Tags.Contains("hangfire")
             });
         });
 
