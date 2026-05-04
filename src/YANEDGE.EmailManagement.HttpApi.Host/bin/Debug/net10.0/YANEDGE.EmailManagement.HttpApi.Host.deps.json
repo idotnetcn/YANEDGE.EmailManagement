@@ -12,12 +12,18 @@
           "Hangfire.Core": "1.8.19",
           "Hangfire.PostgreSql": "1.20.11",
           "Microsoft.EntityFrameworkCore.Design": "10.0.0",
+          "OpenTelemetry.Exporter.Console": "1.10.0",
+          "OpenTelemetry.Extensions.Hosting": "1.10.0",
+          "OpenTelemetry.Instrumentation.AspNetCore": "1.10.1",
+          "OpenTelemetry.Instrumentation.Http": "1.11.0",
+          "OpenTelemetry.Instrumentation.Runtime": "1.10.0",
           "Serilog.AspNetCore": "8.0.0",
           "Serilog.Sinks.Console": "6.0.0",
           "Serilog.Sinks.File": "6.0.0",
           "Volo.Abp.AspNetCore.Mvc": "10.0.0",
           "Volo.Abp.AspNetCore.Serilog": "10.0.0",
           "Volo.Abp.Autofac": "10.0.0",
+          "Volo.Abp.Caching.StackExchangeRedis": "10.0.0",
           "Volo.Abp.Swashbuckle": "10.0.0",
           "YANEDGE.EmailManagement.Application": "1.0.0",
           "YANEDGE.EmailManagement.EntityFrameworkCore": "1.0.0",
@@ -688,6 +694,17 @@
           }
         }
       },
+      "Microsoft.Extensions.Caching.StackExchangeRedis/10.0.0": {
+        "dependencies": {
+          "StackExchange.Redis": "2.7.27"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.25.52411"
+          }
+        }
+      },
       "Microsoft.Extensions.DependencyModel/10.0.0": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
@@ -873,6 +890,99 @@
           }
         }
       },
+      "OpenTelemetry/1.10.0": {
+        "dependencies": {
+          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.11.1"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.10.0.1468"
+          }
+        }
+      },
+      "OpenTelemetry.Api/1.11.1": {
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.Api.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.11.1.1544"
+          }
+        }
+      },
+      "OpenTelemetry.Api.ProviderBuilderExtensions/1.11.1": {
+        "dependencies": {
+          "OpenTelemetry.Api": "1.11.1"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.11.1.1544"
+          }
+        }
+      },
+      "OpenTelemetry.Exporter.Console/1.10.0": {
+        "dependencies": {
+          "OpenTelemetry": "1.10.0"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.Exporter.Console.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.10.0.1468"
+          }
+        }
+      },
+      "OpenTelemetry.Extensions.Hosting/1.10.0": {
+        "dependencies": {
+          "OpenTelemetry": "1.10.0"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.Extensions.Hosting.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.10.0.1468"
+          }
+        }
+      },
+      "OpenTelemetry.Instrumentation.AspNetCore/1.10.1": {
+        "dependencies": {
+          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.11.1"
+        },
+        "runtime": {
+          "lib/net8.0/OpenTelemetry.Instrumentation.AspNetCore.dll": {
+            "assemblyVersion": "1.10.1.278",
+            "fileVersion": "1.10.1.278"
+          }
+        }
+      },
+      "OpenTelemetry.Instrumentation.Http/1.11.0": {
+        "dependencies": {
+          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.11.1"
+        },
+        "runtime": {
+          "lib/net8.0/OpenTelemetry.Instrumentation.Http.dll": {
+            "assemblyVersion": "1.11.0.337",
+            "fileVersion": "1.11.0.337"
+          }
+        }
+      },
+      "OpenTelemetry.Instrumentation.Runtime/1.10.0": {
+        "dependencies": {
+          "OpenTelemetry.Api": "1.11.1"
+        },
+        "runtime": {
+          "lib/net8.0/OpenTelemetry.Instrumentation.Runtime.dll": {
+            "assemblyVersion": "1.10.0.257",
+            "fileVersion": "1.10.0.257"
+          }
+        }
+      },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "2.2.8.1080"
+          }
+        }
+      },
       "Serilog/4.3.0": {
         "runtime": {
           "lib/net9.0/Serilog.dll": {
@@ -975,6 +1085,17 @@
           "lib/net8.0/Serilog.Sinks.File.dll": {
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "6.0.0.0"
+          }
+        }
+      },
+      "StackExchange.Redis/2.7.27": {
+        "dependencies": {
+          "Pipelines.Sockets.Unofficial": "2.2.8"
+        },
+        "runtime": {
+          "lib/net6.0/StackExchange.Redis.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.7.27.49176"
           }
         }
       },
@@ -1394,6 +1515,18 @@
         },
         "runtime": {
           "lib/net10.0/Volo.Abp.Caching.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "Volo.Abp.Caching.StackExchangeRedis/10.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "10.0.0",
+          "Volo.Abp.Caching": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Volo.Abp.Caching.StackExchangeRedis.dll": {
             "assemblyVersion": "10.0.0.0",
             "fileVersion": "10.0.0.0"
           }
@@ -2270,6 +2403,13 @@
       "path": "microsoft.extensions.caching.hybrid/9.9.0",
       "hashPath": "microsoft.extensions.caching.hybrid.9.9.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.Caching.StackExchangeRedis/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LTduPLaoP8T8I/SEKTEks7a7ZCnqlGmX6/7Y4k/nFlbKFsv8oLxhLQ44ktF9ve0lAmEGkLuuvRhunG/LQuhP7Q==",
+      "path": "microsoft.extensions.caching.stackexchangeredis/10.0.0",
+      "hashPath": "microsoft.extensions.caching.stackexchangeredis.10.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.DependencyModel/10.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2403,6 +2543,69 @@
       "path": "nuglify/1.21.17",
       "hashPath": "nuglify.1.21.17.nupkg.sha512"
     },
+    "OpenTelemetry/1.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YUWnKsu0qsD7SO45r6a6nm6dAB3kVZ4Qf5DClU9xG+ObKV2beg0VJwX3U85pAaEhE/IBFp1C8Fj7L3F6gNjpeg==",
+      "path": "opentelemetry/1.10.0",
+      "hashPath": "opentelemetry.1.10.0.nupkg.sha512"
+    },
+    "OpenTelemetry.Api/1.11.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KaBjGMqrqQv41mIkvPUvmAG7yxDlI6qchKhjXlOF3ZwsdcRRLrdrkiDLIJ90iZgUoKVdP8fE1fCri9nc+ug0Cg==",
+      "path": "opentelemetry.api/1.11.1",
+      "hashPath": "opentelemetry.api.1.11.1.nupkg.sha512"
+    },
+    "OpenTelemetry.Api.ProviderBuilderExtensions/1.11.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vMdNMQeW55jXIa/Kybec/br6jC+rWybniTi6DCW5lz1kGghKso+J+FC3uBgiq0/pTqusfeDbO5PEHGM/r5z8Ow==",
+      "path": "opentelemetry.api.providerbuilderextensions/1.11.1",
+      "hashPath": "opentelemetry.api.providerbuilderextensions.1.11.1.nupkg.sha512"
+    },
+    "OpenTelemetry.Exporter.Console/1.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fTW/6FiHjRW8zhomj8RGHRE773LNSFY7zG/Suf5y7wkxxTpRQFo6sI1HDPp/RjAP+7aXFEqOT0nwVnbfFrZEzQ==",
+      "path": "opentelemetry.exporter.console/1.10.0",
+      "hashPath": "opentelemetry.exporter.console.1.10.0.nupkg.sha512"
+    },
+    "OpenTelemetry.Extensions.Hosting/1.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-luLe3deRmThvJd8+Oav4ohg+S3DoXnxDx06+GBinAgmVi873C9YPzA0dJlXG1Zeh7uFajzMtLhskaDejQYCFWw==",
+      "path": "opentelemetry.extensions.hosting/1.10.0",
+      "hashPath": "opentelemetry.extensions.hosting.1.10.0.nupkg.sha512"
+    },
+    "OpenTelemetry.Instrumentation.AspNetCore/1.10.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UaQKgFHtr92YISPHd8ASk/HjDukaaRTVr9YvNywPfqZ9x7+bptGGJQK/2ntTHRiFsJdNHJRXLt28dOFp0TGb9Q==",
+      "path": "opentelemetry.instrumentation.aspnetcore/1.10.1",
+      "hashPath": "opentelemetry.instrumentation.aspnetcore.1.10.1.nupkg.sha512"
+    },
+    "OpenTelemetry.Instrumentation.Http/1.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1ncYPNmMaYNPX664uo3FlmSVGETBKQbBvarbGgB5ZynERTFmCsZ7UqefvVe3vnPYOIAGOjbMAbprYF2BfMielg==",
+      "path": "opentelemetry.instrumentation.http/1.11.0",
+      "hashPath": "opentelemetry.instrumentation.http.1.11.0.nupkg.sha512"
+    },
+    "OpenTelemetry.Instrumentation.Runtime/1.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+IrgISnm2KxowLrCUheuQZP0r2t2XK8kkEJKpy3ZjAVN480qWXHmj5ZQJRhxDOYdIIgrZoL/7XaTO6CqtN7RMw==",
+      "path": "opentelemetry.instrumentation.runtime/1.10.0",
+      "hashPath": "opentelemetry.instrumentation.runtime.1.10.0.nupkg.sha512"
+    },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
+    },
     "Serilog/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -2465,6 +2668,13 @@
       "sha512": "sha512-lxjg89Y8gJMmFxVkbZ+qDgjl+T4yC5F7WSLTvA+5q0R04tfKVLRL/EHpYoJ/MEQd2EeCKDuylBIVnAYMotmh2A==",
       "path": "serilog.sinks.file/6.0.0",
       "hashPath": "serilog.sinks.file.6.0.0.nupkg.sha512"
+    },
+    "StackExchange.Redis/2.7.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Uqc2OQHglqj9/FfGQ6RkKFkZfHySfZlfmbCl+hc+u2I/IqunfelQ7QJi7ZhvAJxUtu80pildVX6NPLdDaUffOw==",
+      "path": "stackexchange.redis/2.7.27",
+      "hashPath": "stackexchange.redis.2.7.27.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/9.0.4": {
       "type": "package",
@@ -2717,6 +2927,13 @@
       "sha512": "sha512-5PmtNdxndF5vQBjzeTU913xMpc9M4A79CtXGWC3V5G+Lwa9AkA7XPGDEIwMTtfJy+/TK8ckUK1EO0qrxl+F24g==",
       "path": "volo.abp.caching/10.0.0",
       "hashPath": "volo.abp.caching.10.0.0.nupkg.sha512"
+    },
+    "Volo.Abp.Caching.StackExchangeRedis/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-obdD1XAqiZrNA0gQno3QyJOunzKmaxgi9OdvFNO1VgM516hxFnzEItwCdJqLUSpqwX/u2F2wFzBqafNJz4RuhQ==",
+      "path": "volo.abp.caching.stackexchangeredis/10.0.0",
+      "hashPath": "volo.abp.caching.stackexchangeredis.10.0.0.nupkg.sha512"
     },
     "Volo.Abp.Castle.Core/10.0.0": {
       "type": "package",

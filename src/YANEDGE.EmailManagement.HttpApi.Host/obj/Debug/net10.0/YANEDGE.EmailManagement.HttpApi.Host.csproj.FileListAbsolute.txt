@@ -312,3 +312,15 @@
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/BouncyCastle.Cryptography.dll
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/MailKit.dll
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/MimeKit.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.Api.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.Exporter.Console.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.Extensions.Hosting.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.Instrumentation.AspNetCore.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.Instrumentation.Http.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/OpenTelemetry.Instrumentation.Runtime.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/Pipelines.Sockets.Unofficial.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/StackExchange.Redis.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.HttpApi.Host/bin/Debug/net10.0/Volo.Abp.Caching.StackExchangeRedis.dll

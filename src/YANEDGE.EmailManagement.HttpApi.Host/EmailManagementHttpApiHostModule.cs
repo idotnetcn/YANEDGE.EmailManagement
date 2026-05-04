@@ -183,7 +183,7 @@ public class EmailManagementHttpApiHostModule : AbpModule
                     options.Filter = httpContext =>
                     {
                         // Don't trace health check endpoints
-                        var path = httpContext.Request.Path.Value;
+                        var path = httpContext.Request.Path.Value ?? string.Empty;
                         return !path.StartsWith("/health");
                     };
                 })
