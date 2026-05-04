@@ -132,7 +132,6 @@ public class SendTaskProcessorJobTests : EmailManagementApplicationTestBase
         );
 
         task.SetBody("<p>Test body</p>", "Test body");
-        task.SetRecipients("test@example.com", null, null);
 
         return task;
     }

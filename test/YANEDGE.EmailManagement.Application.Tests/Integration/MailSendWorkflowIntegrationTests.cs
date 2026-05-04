@@ -35,12 +35,12 @@ public class MailSendWorkflowIntegrationTests : EmailManagementApplicationTestBa
             "Integration Test Account",
             "integration@test.com",
             "Integration Tester",
-            "Business",
-            "IMAP",
+            MailAccountType.Service,
+            MailProtocol.IMAP,
             "imap.test.com",
             993,
             true,
-            "SMTP",
+            MailProtocol.IMAP,
             "smtp.test.com",
             587,
             true,
@@ -76,7 +76,6 @@ public class MailSendWorkflowIntegrationTests : EmailManagementApplicationTestBa
         );
 
         sendTask.SetBody("<p>Test body</p>", "Test body");
-        sendTask.SetRecipients("recipient@test.com", null, null);
         sendTask.SetTemplate(template.Id);
 
         await _sendTaskRepository.InsertAsync(sendTask);
@@ -94,7 +93,7 @@ public class MailSendWorkflowIntegrationTests : EmailManagementApplicationTestBa
         savedTask.ShouldNotBeNull();
         savedTask.TemplateId.ShouldBe(template.Id);
         savedTask.MailAccountId.ShouldBe(mailAccount.Id);
-        savedTask.Status.ShouldBe(SendTaskStatus.Pending);
+        savedTask.Status.ShouldBe(SendTaskStatus.Draft);
     }
 
     [Fact]

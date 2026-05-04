@@ -1,7 +1,7 @@
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.PostgreSql;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;

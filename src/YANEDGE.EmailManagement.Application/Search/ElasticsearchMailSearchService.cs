@@ -171,27 +171,47 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
             // Filters
             if (request.MailAccountId.HasValue)
             {
-                mustQueries.Add(new TermQuery("mailAccountId") { Value = FieldValue.String(request.MailAccountId.Value.ToString()) });
+                mustQueries.Add(new TermQuery
+                {
+                    Field = "mailAccountId",
+                    Value = FieldValue.String(request.MailAccountId.Value.ToString())
+                });
             }
 
             if (request.ThreadId.HasValue)
             {
-                mustQueries.Add(new TermQuery("threadId") { Value = FieldValue.String(request.ThreadId.Value.ToString()) });
+                mustQueries.Add(new TermQuery
+                {
+                    Field = "threadId",
+                    Value = FieldValue.String(request.ThreadId.Value.ToString())
+                });
             }
 
             if (!string.IsNullOrWhiteSpace(request.FromAddress))
             {
-                mustQueries.Add(new TermQuery("fromAddress") { Value = request.FromAddress.ToLower() });
+                mustQueries.Add(new TermQuery
+                {
+                    Field = "fromAddress",
+                    Value = FieldValue.String(request.FromAddress.ToLower())
+                });
             }
 
             if (!string.IsNullOrWhiteSpace(request.ToAddress))
             {
-                mustQueries.Add(new TermQuery("toAddresses") { Value = request.ToAddress.ToLower() });
+                mustQueries.Add(new TermQuery
+                {
+                    Field = "toAddresses",
+                    Value = FieldValue.String(request.ToAddress.ToLower())
+                });
             }
 
             if (request.HasAttachments.HasValue)
             {
-                mustQueries.Add(new TermQuery("hasAttachments") { Value = request.HasAttachments.Value });
+                mustQueries.Add(new TermQuery
+                {
+                    Field = "hasAttachments",
+                    Value = FieldValue.Boolean(request.HasAttachments.Value)
+                });
             }
 
             if (request.StartDate.HasValue || request.EndDate.HasValue)
@@ -400,16 +420,16 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
                 switch (request.SortField.ToLower())
                 {
                     case "subject":
-                        s.Field(f => f.Subject, new FieldSort { Order = sortOrder });
+                        s.Field(f => f.Subject, sortOrder);
                         break;
                     case "fromaddress":
-                        s.Field(f => f.FromAddress, new FieldSort { Order = sortOrder });
+                        s.Field(f => f.FromAddress, sortOrder);
                         break;
                     case "receivedtime":
-                        s.Field(f => f.ReceivedTime, new FieldSort { Order = sortOrder });
+                        s.Field(f => f.ReceivedTime, sortOrder);
                         break;
                     default:
-                        s.Field(f => f.ReceivedTime, new FieldSort { Order = SortOrder.Desc });
+                        s.Field(f => f.ReceivedTime, SortOrder.Desc);
                         break;
                 }
             });
@@ -417,7 +437,7 @@ public class ElasticsearchMailSearchService : IMailSearchService, ITransientDepe
         else
         {
             // Default sort by received time descending
-            sortOptions.Add(s => s.Field(f => f.ReceivedTime, new FieldSort { Order = SortOrder.Desc }));
+            sortOptions.Add(s => s.Field(f => f.ReceivedTime, SortOrder.Desc));
         }
 
         return sortOptions.ToArray();
