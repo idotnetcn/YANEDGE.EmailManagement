@@ -205,31 +205,39 @@
 | MailAccount | MailRule | 规则可适用于指定邮箱 |
 | MailMessage | MailContact | 通过EmailAddress自动匹配联系人 |
 
-## 待完成工作 (后续迭代)
+## 已完成工作 (2026-05-04更新)
 
 ### 1. Application.Contracts层
-- [ ] 各模块的DTO定义
-- [ ] 应用服务接口定义
-- [ ] Input/Output模型定义
+- [x] 各模块的DTO定义
+- [x] 应用服务接口定义
+- [x] Input/Output模型定义
 
 ### 2. Application层
-- [ ] 模板管理应用服务 (TemplateAppService)
-- [ ] 签名管理应用服务 (SignatureAppService)
-- [ ] 标签管理应用服务 (LabelAppService)
-- [ ] 规则管理应用服务 (RuleAppService)
-- [ ] 附件管理应用服务 (AttachmentAppService)
-- [ ] 联系人管理应用服务 (ContactAppService)
-- [ ] 业务关联应用服务 (BusinessRelationAppService)
+- [x] 模板管理应用服务 (TemplateAppService)
+- [x] 签名管理应用服务 (SignatureAppService)
+- [x] 标签管理应用服务 (LabelAppService)
+- [x] 规则管理应用服务 (RuleAppService)
+- [x] 附件管理应用服务 (AttachmentAppService)
+- [x] 联系人管理应用服务 (ContactAppService)
+- [x] 业务关联应用服务 (BusinessRelationAppService)
 
 ### 3. HttpApi层
-- [ ] 各模块的RESTful API控制器
-- [ ] API路由设计 (/api/mail-management/v1/...)
-- [ ] Swagger文档配置
+- [x] 各模块的RESTful API控制器
+- [x] API路由设计 (/api/mail-management/v1/...)
+- [x] Swagger文档配置
 
 ### 4. 数据库层完善
-- [ ] 实体映射配置 (EmailManagementDbContextModelCreatingExtensions)
-- [ ] 索引设计
-- [ ] EF Core Migrations生成
+- [x] 实体映射配置 (EmailManagementDbContextModelCreatingExtensions)
+- [x] 索引设计
+- [x] EF Core Migrations生成
+
+### 5. 测试层完善
+- [x] Domain.Tests - 领域模型单元测试
+- [x] Application.Tests - 应用服务集成测试
+- [x] HttpApi.Tests - API控制器集成测试
+- [x] 修复测试编译错误 (移除WithUnitOfWorkAsync, 添加InMemoryDatabase)
+
+## 待完成工作 (后续迭代)
 
 ### 5. 基础设施
 - [ ] 模板渲染引擎 (支持变量替换)
