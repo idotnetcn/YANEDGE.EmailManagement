@@ -1,14 +1,14 @@
 using System;
 using Volo.Abp.EventBus;
 
-namespace YANEDGE.EmailManagement.Events;
+namespace YANEDGE.EmailManagement.Domain.Shared.Events;
 
 /// <summary>
 /// 发送任务失败事件
 /// Event triggered when a mail send task fails
 /// </summary>
 [EventName("EmailManagement.MailSendTask.Failed")]
-public class MailSendTaskFailedEvent : EtoBase
+public class MailSendTaskFailedEvent 
 {
     public Guid SendTaskId { get; set; }
     public Guid MailAccountId { get; set; }

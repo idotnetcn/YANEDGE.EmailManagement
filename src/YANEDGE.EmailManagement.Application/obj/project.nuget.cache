@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "Sjil7d2539w=",
+  "dgSpecHash": "1dnz5rnmZxc=",
   "success": true,
   "projectFilePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/src/YANEDGE.EmailManagement.Application/YANEDGE.EmailManagement.Application.csproj",
   "expectedPackageFiles": [
     "/home/runner/.nuget/packages/asynckeyedlock/7.1.6/asynckeyedlock.7.1.6.nupkg.sha512",
     "/home/runner/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/bouncycastle.cryptography/2.6.2/bouncycastle.cryptography.2.6.2.nupkg.sha512",
+    "/home/runner/.nuget/packages/elastic.clients.elasticsearch/8.17.0/elastic.clients.elasticsearch.8.17.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/elastic.transport/0.5.7/elastic.transport.0.5.7.nupkg.sha512",
     "/home/runner/.nuget/packages/jetbrains.annotations/2025.2.2/jetbrains.annotations.2025.2.2.nupkg.sha512",
     "/home/runner/.nuget/packages/mailkit/4.16.0/mailkit.4.16.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.aspnetcore.authorization/10.0.0/microsoft.aspnetcore.authorization.10.0.0.nupkg.sha512",
@@ -33,6 +35,7 @@
     "/home/runner/.nuget/packages/microsoft.extensions.fileproviders.physical/10.0.0/microsoft.extensions.fileproviders.physical.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.filesystemglobbing/10.0.0/microsoft.extensions.filesystemglobbing.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.hosting.abstractions/10.0.0/microsoft.extensions.hosting.abstractions.10.0.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.extensions.http/10.0.0/microsoft.extensions.http.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.localization/10.0.0/microsoft.extensions.localization.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.localization.abstractions/10.0.0/microsoft.extensions.localization.abstractions.10.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.extensions.logging/10.0.0/microsoft.extensions.logging.10.0.0.nupkg.sha512",

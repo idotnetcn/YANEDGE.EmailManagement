@@ -1,14 +1,14 @@
 using System;
 using Volo.Abp.EventBus;
 
-namespace YANEDGE.EmailManagement.Events;
+namespace YANEDGE.EmailManagement.Domain.Shared.Events;
 
 /// <summary>
 /// 邮件发送成功事件
 /// Event triggered when a mail message is sent successfully
 /// </summary>
 [EventName("EmailManagement.MailMessage.Sent")]
-public class MailMessageSentEvent : EtoBase
+public class MailMessageSentEvent 
 {
     public Guid SendTaskId { get; set; }
     public Guid? MessageId { get; set; }

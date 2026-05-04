@@ -411,6 +411,10 @@
               "target": "Package",
               "version": "[10.0.0, )"
             },
+            "Volo.Abp.EventBus": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
             "Volo.Abp.Localization": {
               "target": "Package",
               "version": "[10.0.0, )"

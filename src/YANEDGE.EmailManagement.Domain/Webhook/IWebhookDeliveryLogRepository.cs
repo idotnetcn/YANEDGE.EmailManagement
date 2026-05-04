@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Task;
+using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
 namespace YANEDGE.EmailManagement.Domain.Webhook;

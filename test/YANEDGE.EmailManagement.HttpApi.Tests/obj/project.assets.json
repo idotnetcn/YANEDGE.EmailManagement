@@ -226,6 +226,35 @@
           }
         }
       },
+      "Elastic.Clients.Elasticsearch/8.17.0": {
+        "type": "package",
+        "dependencies": {
+          "Elastic.Transport": "0.5.7"
+        },
+        "compile": {
+          "lib/net8.0/Elastic.Clients.Elasticsearch.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Elastic.Clients.Elasticsearch.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Elastic.Transport/0.5.7": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Elastic.Transport.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Elastic.Transport.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "EmptyFiles/4.4.0": {
         "type": "package",
         "compile": {
@@ -3275,6 +3304,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Elastic.Clients.Elasticsearch": "8.17.0",
           "Volo.Abp.AutoMapper": "10.0.0",
           "Volo.Abp.Ddd.Application": "10.0.0",
           "YANEDGE.EmailManagement.Application.Contracts": "1.0.0",
@@ -3308,6 +3338,7 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "MailKit": "4.16.0",
+          "Microsoft.Extensions.Http": "10.0.0",
           "Volo.Abp.Ddd.Domain": "10.0.0",
           "Volo.Abp.EventBus": "10.0.0",
           "YANEDGE.EmailManagement.Domain.Shared": "1.0.0"
@@ -3327,6 +3358,7 @@
           "Volo.Abp.Core": "10.0.0",
           "Volo.Abp.Ddd.Domain": "10.0.0",
           "Volo.Abp.Ddd.Domain.Shared": "10.0.0",
+          "Volo.Abp.EventBus": "10.0.0",
           "Volo.Abp.Localization": "10.0.0",
           "Volo.Abp.Validation": "10.0.0"
         },
@@ -3729,6 +3761,53 @@
         "lib/netstandard2.0/Duende.IdentityModel.dll",
         "lib/netstandard2.0/Duende.IdentityModel.pdb",
         "lib/netstandard2.0/Duende.IdentityModel.xml"
+      ]
+    },
+    "Elastic.Clients.Elasticsearch/8.17.0": {
+      "sha512": "h/JfF01PzmBrO9O04BBalpjl2k7jMnFevgCZVitLViqYXyILBNOKlRcfIIYZGYzb9eYBC+fg4ay3BV+Ngd0r2A==",
+      "type": "package",
+      "path": "elastic.clients.elasticsearch/8.17.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "elastic.clients.elasticsearch.8.17.0.nupkg.sha512",
+        "elastic.clients.elasticsearch.nuspec",
+        "lib/net462/Elastic.Clients.Elasticsearch.dll",
+        "lib/net462/Elastic.Clients.Elasticsearch.xml",
+        "lib/net8.0/Elastic.Clients.Elasticsearch.dll",
+        "lib/net8.0/Elastic.Clients.Elasticsearch.xml",
+        "lib/netstandard2.0/Elastic.Clients.Elasticsearch.dll",
+        "lib/netstandard2.0/Elastic.Clients.Elasticsearch.xml",
+        "lib/netstandard2.1/Elastic.Clients.Elasticsearch.dll",
+        "lib/netstandard2.1/Elastic.Clients.Elasticsearch.xml",
+        "nuget-icon.png"
+      ]
+    },
+    "Elastic.Transport/0.5.7": {
+      "sha512": "0VQhS6RauOqydF1bUs7nqpk9u8X2Sa2O7djiioD5b/jWf/cX6S7GcmlWzqvm2j1a+np1Q79B2SwEFOI2zMkcbw==",
+      "type": "package",
+      "path": "elastic.transport/0.5.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "elastic.transport.0.5.7.nupkg.sha512",
+        "elastic.transport.nuspec",
+        "lib/net462/Elastic.Transport.dll",
+        "lib/net462/Elastic.Transport.pdb",
+        "lib/net462/Elastic.Transport.xml",
+        "lib/net8.0/Elastic.Transport.dll",
+        "lib/net8.0/Elastic.Transport.pdb",
+        "lib/net8.0/Elastic.Transport.xml",
+        "lib/netstandard2.0/Elastic.Transport.dll",
+        "lib/netstandard2.0/Elastic.Transport.pdb",
+        "lib/netstandard2.0/Elastic.Transport.xml",
+        "lib/netstandard2.1/Elastic.Transport.dll",
+        "lib/netstandard2.1/Elastic.Transport.pdb",
+        "lib/netstandard2.1/Elastic.Transport.xml",
+        "license.txt",
+        "nuget-icon.png"
       ]
     },
     "EmptyFiles/4.4.0": {

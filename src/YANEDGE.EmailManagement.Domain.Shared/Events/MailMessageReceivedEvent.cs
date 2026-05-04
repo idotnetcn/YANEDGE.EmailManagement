@@ -1,14 +1,14 @@
 using System;
 using Volo.Abp.EventBus;
 
-namespace YANEDGE.EmailManagement.Events;
+namespace YANEDGE.EmailManagement.Domain.Shared.Events;
 
 /// <summary>
 /// 邮件接收事件
 /// Event triggered when a new mail message is received
 /// </summary>
 [EventName("EmailManagement.MailMessage.Received")]
-public class MailMessageReceivedEvent : EtoBase
+public class MailMessageReceivedEvent 
 {
     public Guid MessageId { get; set; }
     public Guid ThreadId { get; set; }

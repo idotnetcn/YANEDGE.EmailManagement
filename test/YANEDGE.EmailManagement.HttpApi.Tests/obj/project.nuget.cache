@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fvBGQL5vb08=",
+  "dgSpecHash": "Jjja9o8jyfU=",
   "success": true,
   "projectFilePath": "/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.HttpApi.Tests/YANEDGE.EmailManagement.HttpApi.Tests.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,8 @@
     "/home/runner/.nuget/packages/coverlet.collector/6.0.2/coverlet.collector.6.0.2.nupkg.sha512",
     "/home/runner/.nuget/packages/diffengine/11.3.0/diffengine.11.3.0.nupkg.sha512",
     "/home/runner/.nuget/packages/duende.identitymodel/7.1.0/duende.identitymodel.7.1.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/elastic.clients.elasticsearch/8.17.0/elastic.clients.elasticsearch.8.17.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/elastic.transport/0.5.7/elastic.transport.0.5.7.nupkg.sha512",
     "/home/runner/.nuget/packages/emptyfiles/4.4.0/emptyfiles.4.4.0.nupkg.sha512",
     "/home/runner/.nuget/packages/jetbrains.annotations/2025.2.2/jetbrains.annotations.2025.2.2.nupkg.sha512",
     "/home/runner/.nuget/packages/mailkit/4.16.0/mailkit.4.16.0.nupkg.sha512",

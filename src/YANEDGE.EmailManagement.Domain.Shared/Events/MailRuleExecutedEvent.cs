@@ -1,14 +1,14 @@
 using System;
 using Volo.Abp.EventBus;
 
-namespace YANEDGE.EmailManagement.Events;
+namespace YANEDGE.EmailManagement.Domain.Shared.Events;
 
 /// <summary>
 /// 规则执行事件
 /// Event triggered when a mail rule is executed
 /// </summary>
 [EventName("EmailManagement.MailRule.Executed")]
-public class MailRuleExecutedEvent : EtoBase
+public class MailRuleExecutedEvent 
 {
     public Guid RuleId { get; set; }
     public string RuleName { get; set; } = string.Empty;

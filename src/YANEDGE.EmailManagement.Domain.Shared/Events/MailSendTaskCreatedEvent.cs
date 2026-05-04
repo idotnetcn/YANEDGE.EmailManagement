@@ -1,14 +1,14 @@
 using System;
 using Volo.Abp.EventBus;
 
-namespace YANEDGE.EmailManagement.Events;
+namespace YANEDGE.EmailManagement.Domain.Shared.Events;
 
 /// <summary>
 /// 发送任务创建事件
 /// Event triggered when a mail send task is created
 /// </summary>
 [EventName("EmailManagement.MailSendTask.Created")]
-public class MailSendTaskCreatedEvent : EtoBase
+public class MailSendTaskCreatedEvent 
 {
     public Guid SendTaskId { get; set; }
     public Guid MailAccountId { get; set; }

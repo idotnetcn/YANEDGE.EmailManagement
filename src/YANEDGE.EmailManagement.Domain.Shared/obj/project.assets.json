@@ -3524,6 +3524,7 @@
       "Volo.Abp.Core >= 10.0.0",
       "Volo.Abp.Ddd.Domain >= 10.0.0",
       "Volo.Abp.Ddd.Domain.Shared >= 10.0.0",
+      "Volo.Abp.EventBus >= 10.0.0",
       "Volo.Abp.Localization >= 10.0.0",
       "Volo.Abp.Validation >= 10.0.0"
     ]
@@ -3584,6 +3585,10 @@
             "version": "[10.0.0, )"
           },
           "Volo.Abp.Ddd.Domain.Shared": {
+            "target": "Package",
+            "version": "[10.0.0, )"
+          },
+          "Volo.Abp.EventBus": {
             "target": "Package",
             "version": "[10.0.0, )"
           },

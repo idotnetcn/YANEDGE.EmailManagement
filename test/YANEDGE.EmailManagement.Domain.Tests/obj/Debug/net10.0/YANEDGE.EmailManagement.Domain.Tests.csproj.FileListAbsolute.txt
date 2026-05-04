@@ -233,3 +233,4 @@
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Microsoft.Extensions.Diagnostics.dll
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Volo.Abp.Authorization.dll
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Volo.Abp.Authorization.Abstractions.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Microsoft.Extensions.Http.dll

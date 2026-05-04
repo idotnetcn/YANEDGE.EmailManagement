@@ -1,14 +1,14 @@
 using System;
 using Volo.Abp.EventBus;
 
-namespace YANEDGE.EmailManagement.Events;
+namespace YANEDGE.EmailManagement.Domain.Shared.Events;
 
 /// <summary>
 /// 附件访问事件
 /// Event triggered when attachment is accessed/downloaded
 /// </summary>
 [EventName("EmailManagement.MailAttachment.Accessed")]
-public class MailAttachmentAccessedEvent : EtoBase
+public class MailAttachmentAccessedEvent 
 {
     public Guid AttachmentId { get; set; }
     public Guid MessageId { get; set; }
