@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -16,6 +17,9 @@ public class SendTaskProcessorJob : ITransientDependency
     private readonly ILogger<SendTaskProcessorJob> _logger;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
 
+    private const string JobName = "SendTaskProcessor";
+    private const int MaxBatchSize = 50; // 每批次最多处理50个任务
+
     public SendTaskProcessorJob(
         IMailSendTaskRepository sendTaskRepository,
         IMailSendService mailSendService,
@@ -33,7 +37,12 @@ public class SendTaskProcessorJob : ITransientDependency
     /// </summary>
     public async Task ExecuteAsync()
     {
-        _logger.LogInformation("发件任务处理开始执行...");
+        var stopwatch = Stopwatch.StartNew();
+        _logger.LogInformation("[{JobName}] 发件任务处理开始执行...", JobName);
+
+        var successCount = 0;
+        var failCount = 0;
+        var totalTasks = 0;
 
         try
         {
@@ -41,40 +50,64 @@ public class SendTaskProcessorJob : ITransientDependency
 
             // 获取所有待发送的任务
             var pendingTasks = await _sendTaskRepository.GetPendingSendTasksAsync();
+            totalTasks = pendingTasks.Count;
 
-            _logger.LogInformation("找到 {Count} 个待发送任务", pendingTasks.Count);
+            if (totalTasks == 0)
+            {
+                _logger.LogInformation("[{JobName}] 没有待发送任务", JobName);
+                await uow.CompleteAsync();
+                return;
+            }
 
-            var successCount = 0;
-            var failCount = 0;
+            _logger.LogInformation("[{JobName}] 找到 {Count} 个待发送任务", JobName, totalTasks);
 
-            foreach (var task in pendingTasks)
+            // 限制批次大小，避免长时间运行
+            var tasksToProcess = pendingTasks.Take(MaxBatchSize).ToList();
+            if (totalTasks > MaxBatchSize)
+            {
+                _logger.LogWarning("[{JobName}] 任务数量超过批次限制，本次仅处理前 {BatchSize} 个任务",
+                    JobName, MaxBatchSize);
+            }
+
+            foreach (var task in tasksToProcess)
             {
                 try
                 {
-                    _logger.LogDebug("开始处理发件任务: {TaskId}", task.Id);
+                    _logger.LogDebug("[{JobName}] 开始处理发件任务: {TaskId}",
+                        JobName, task.Id);
 
                     await _mailSendService.ExecuteSendTaskAsync(task.Id);
 
                     successCount++;
-                    _logger.LogDebug("发件任务处理成功: {TaskId}", task.Id);
+                    _logger.LogDebug("[{JobName}] 发件任务处理成功: {TaskId}", JobName, task.Id);
+                }
+                catch (OperationCanceledException)
+                {
+                    failCount++;
+                    _logger.LogWarning("[{JobName}] 发件任务已取消: {TaskId}", JobName, task.Id);
                 }
                 catch (Exception ex)
                 {
                     failCount++;
-                    _logger.LogError(ex, "发件任务处理失败: {TaskId}", task.Id);
+                    _logger.LogError(ex, "[{JobName}] 发件任务处理失败: {TaskId}", JobName, task.Id);
+                    // 继续处理下一个任务，不中断整个批次
                 }
             }
 
             await uow.CompleteAsync();
 
+            stopwatch.Stop();
+            var successRate = tasksToProcess.Count > 0 ? (double)successCount / tasksToProcess.Count * 100 : 0;
+
             _logger.LogInformation(
-                "发件任务处理完成。成功: {Success}, 失败: {Fail}",
-                successCount,
-                failCount);
+                "[{JobName}] 发件任务处理完成。总计: {Total}, 处理: {Processed}, 成功: {Success}, 失败: {Fail}, 成功率: {Rate:F2}%, 耗时: {Duration}ms",
+                JobName, totalTasks, tasksToProcess.Count, successCount, failCount, successRate, stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "发件任务处理出错");
+            stopwatch.Stop();
+            _logger.LogError(ex, "[{JobName}] 发件任务处理出错，耗时: {Duration}ms",
+                JobName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }

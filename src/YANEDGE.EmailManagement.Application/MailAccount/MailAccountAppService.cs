@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
 using YANEDGE.EmailManagement.Application.Contracts.MailAccount;
 using YANEDGE.EmailManagement.Domain.MailAccount;
 using YANEDGE.EmailManagement.Domain.Services;
+using YANEDGE.EmailManagement.Permissions;
 
 namespace YANEDGE.EmailManagement.Application.MailAccount;
 
 /// <summary>
 /// 邮箱账号应用服务
 /// </summary>
+[Authorize(EmailManagementPermissions.MailAccounts.Default)]
 public class MailAccountAppService : ApplicationService, IMailAccountAppService
 {
     private readonly IMailAccountRepository _mailAccountRepository;
@@ -41,6 +44,7 @@ public class MailAccountAppService : ApplicationService, IMailAccountAppService
         return MapToDto(account);
     }
 
+    [Authorize(EmailManagementPermissions.MailAccounts.Manage)]
     public async Task<MailAccountDto> CreateAsync(CreateMailAccountInput input)
     {
         // Encrypt password before saving
@@ -70,6 +74,7 @@ public class MailAccountAppService : ApplicationService, IMailAccountAppService
         return MapToDto(account);
     }
 
+    [Authorize(EmailManagementPermissions.MailAccounts.Sync)]
     public async Task<MailAccountDto> ToggleSyncAsync(Guid id, bool enabled)
     {
         var account = await _mailAccountRepository.GetAsync(id);

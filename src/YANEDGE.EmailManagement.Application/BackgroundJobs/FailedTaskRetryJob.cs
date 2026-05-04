@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -16,6 +17,9 @@ public class FailedTaskRetryJob : ITransientDependency
     private readonly ILogger<FailedTaskRetryJob> _logger;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
 
+    private const string JobName = "FailedTaskRetry";
+    private const int MaxRetryBatchSize = 20; // 每批次最多重试20个任务
+
     public FailedTaskRetryJob(
         IMailSendTaskRepository sendTaskRepository,
         IMailSendService mailSendService,
@@ -33,7 +37,12 @@ public class FailedTaskRetryJob : ITransientDependency
     /// </summary>
     public async Task ExecuteAsync()
     {
-        _logger.LogInformation("失败任务重试开始执行...");
+        var stopwatch = Stopwatch.StartNew();
+        _logger.LogInformation("[{JobName}] 失败任务重试开始执行...", JobName);
+
+        var retrySuccessCount = 0;
+        var retryFailCount = 0;
+        var totalTasks = 0;
 
         try
         {
@@ -41,18 +50,32 @@ public class FailedTaskRetryJob : ITransientDependency
 
             // 获取所有可重试的失败任务
             var failedTasks = await _sendTaskRepository.GetFailedTasksForRetryAsync();
+            totalTasks = failedTasks.Count;
 
-            _logger.LogInformation("找到 {Count} 个可重试的失败任务", failedTasks.Count);
+            if (totalTasks == 0)
+            {
+                _logger.LogInformation("[{JobName}] 没有可重试的失败任务", JobName);
+                await uow.CompleteAsync();
+                return;
+            }
 
-            var retrySuccessCount = 0;
-            var retryFailCount = 0;
+            _logger.LogInformation("[{JobName}] 找到 {Count} 个可重试的失败任务", JobName, totalTasks);
 
-            foreach (var task in failedTasks)
+            // 限制批次大小
+            var tasksToRetry = failedTasks.Take(MaxRetryBatchSize).ToList();
+            if (totalTasks > MaxRetryBatchSize)
+            {
+                _logger.LogWarning("[{JobName}] 重试任务数量超过批次限制，本次仅处理前 {BatchSize} 个任务",
+                    JobName, MaxRetryBatchSize);
+            }
+
+            foreach (var task in tasksToRetry)
             {
                 try
                 {
                     _logger.LogDebug(
-                        "开始重试任务: {TaskId}, 当前重试次数: {RetryCount}/{MaxRetry}",
+                        "[{JobName}] 开始重试任务: {TaskId}, 当前重试次数: {RetryCount}/{MaxRetry}",
+                        JobName,
                         task.Id,
                         task.RetryCount,
                         task.MaxRetryCount);
@@ -60,25 +83,43 @@ public class FailedTaskRetryJob : ITransientDependency
                     await _mailSendService.ExecuteSendTaskAsync(task.Id);
 
                     retrySuccessCount++;
-                    _logger.LogInformation("任务重试成功: {TaskId}", task.Id);
+                    _logger.LogInformation("[{JobName}] 任务重试成功: {TaskId}", JobName, task.Id);
+                }
+                catch (OperationCanceledException)
+                {
+                    retryFailCount++;
+                    _logger.LogWarning("[{JobName}] 任务重试已取消: {TaskId}", JobName, task.Id);
                 }
                 catch (Exception ex)
                 {
                     retryFailCount++;
-                    _logger.LogError(ex, "任务重试失败: {TaskId}", task.Id);
+                    _logger.LogError(ex, "[{JobName}] 任务重试失败: {TaskId}, 重试次数: {RetryCount}/{MaxRetry}",
+                        JobName, task.Id, task.RetryCount, task.MaxRetryCount);
+
+                    // 检查是否已达最大重试次数
+                    if (task.RetryCount >= task.MaxRetryCount)
+                    {
+                        _logger.LogWarning("[{JobName}] 任务 {TaskId} 已达最大重试次数，将不再重试",
+                            JobName, task.Id);
+                    }
+                    // 继续处理下一个任务
                 }
             }
 
             await uow.CompleteAsync();
 
+            stopwatch.Stop();
+            var successRate = tasksToRetry.Count > 0 ? (double)retrySuccessCount / tasksToRetry.Count * 100 : 0;
+
             _logger.LogInformation(
-                "失败任务重试完成。重试成功: {Success}, 重试失败: {Fail}",
-                retrySuccessCount,
-                retryFailCount);
+                "[{JobName}] 失败任务重试完成。总计: {Total}, 处理: {Processed}, 重试成功: {Success}, 重试失败: {Fail}, 成功率: {Rate:F2}%, 耗时: {Duration}ms",
+                JobName, totalTasks, tasksToRetry.Count, retrySuccessCount, retryFailCount, successRate, stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "失败任务重试出错");
+            stopwatch.Stop();
+            _logger.LogError(ex, "[{JobName}] 失败任务重试出错，耗时: {Duration}ms",
+                JobName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }

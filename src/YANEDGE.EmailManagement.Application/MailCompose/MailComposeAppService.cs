@@ -1,15 +1,18 @@
+using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Users;
 using YANEDGE.EmailManagement.Application.Contracts.MailCompose;
 using YANEDGE.EmailManagement.Domain.MailCompose;
 using YANEDGE.EmailManagement.Domain.Services;
 using YANEDGE.EmailManagement.Domain.Approval;
+using YANEDGE.EmailManagement.Permissions;
 
 namespace YANEDGE.EmailManagement.Application.MailCompose;
 
 /// <summary>
 /// 发件应用服务
 /// </summary>
+[Authorize(EmailManagementPermissions.SendTasks.Default)]
 public class MailComposeAppService : ApplicationService, IMailComposeAppService
 {
     private readonly IMailSendTaskRepository _mailSendTaskRepository;

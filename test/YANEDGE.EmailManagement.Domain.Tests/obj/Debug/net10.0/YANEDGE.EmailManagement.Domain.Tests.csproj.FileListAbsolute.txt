@@ -228,3 +228,8 @@
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Domain.Tests.pdb
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/obj/Debug/net10.0/YANEDGE.EmailManagement.Domain.Tests.genruntimeconfig.cache
 /home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/obj/Debug/net10.0/ref/YANEDGE.EmailManagement.Domain.Tests.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Microsoft.AspNetCore.Authorization.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Microsoft.AspNetCore.Metadata.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Microsoft.Extensions.Diagnostics.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Volo.Abp.Authorization.dll
+/home/runner/work/YANEDGE.EmailManagement/YANEDGE.EmailManagement/test/YANEDGE.EmailManagement.Domain.Tests/bin/Debug/net10.0/Volo.Abp.Authorization.Abstractions.dll
