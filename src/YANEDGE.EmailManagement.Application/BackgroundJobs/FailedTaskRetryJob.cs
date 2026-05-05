@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Hangfire;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -10,6 +11,8 @@ namespace YANEDGE.EmailManagement.Application.BackgroundJobs;
 /// <summary>
 /// 失败任务重试后台任务
 /// </summary>
+[DisableConcurrentExecution(timeoutInSeconds: 300)]
+[AutomaticRetry(Attempts = 0)]
 public class FailedTaskRetryJob : ITransientDependency
 {
     private readonly IMailSendTaskRepository _sendTaskRepository;
@@ -79,6 +82,9 @@ public class FailedTaskRetryJob : ITransientDependency
                         task.Id,
                         task.RetryCount,
                         task.MaxRetryCount);
+
+                    task.Retry();
+                    await _sendTaskRepository.UpdateAsync(task);
 
                     await _mailSendService.ExecuteSendTaskAsync(task.Id);
 

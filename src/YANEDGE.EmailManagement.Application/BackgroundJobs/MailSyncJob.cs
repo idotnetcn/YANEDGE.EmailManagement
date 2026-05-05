@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Hangfire;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -10,6 +11,8 @@ namespace YANEDGE.EmailManagement.Application.BackgroundJobs;
 /// <summary>
 /// 邮件同步后台任务
 /// </summary>
+[DisableConcurrentExecution(timeoutInSeconds: 600)]
+[AutomaticRetry(Attempts = 0)]
 public class MailSyncJob : ITransientDependency
 {
     private readonly IMailAccountRepository _mailAccountRepository;
@@ -76,10 +79,20 @@ public class MailSyncJob : ITransientDependency
                         _logger.LogDebug("[{JobName}] 开始同步邮箱: {Email} (ID: {AccountId})",
                             JobName, account.EmailAddress, account.Id);
 
-                        await _mailSyncService.TriggerSyncAsync(account.Id);
+                        var result = await _mailSyncService.TriggerSyncAsync(account.Id);
 
-                        Interlocked.Increment(ref successCount);
-                        _logger.LogDebug("[{JobName}] 邮箱同步成功: {Email}", JobName, account.EmailAddress);
+                        if (result.Accepted)
+                        {
+                            Interlocked.Increment(ref successCount);
+                            _logger.LogDebug("[{JobName}] 邮箱同步已入队: {Email}, SyncJobId: {SyncJobId}, BackgroundJobId: {BackgroundJobId}",
+                                JobName, account.EmailAddress, result.JobId, result.BackgroundJobId);
+                        }
+                        else
+                        {
+                            Interlocked.Increment(ref failCount);
+                            _logger.LogWarning("[{JobName}] 邮箱同步未接受: {Email}, Status: {Status}, Message: {Message}",
+                                JobName, account.EmailAddress, result.Status, result.Message);
+                        }
                     }
                     catch (OperationCanceledException)
                     {

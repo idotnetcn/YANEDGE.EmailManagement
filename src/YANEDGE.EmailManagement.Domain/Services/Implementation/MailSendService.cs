@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Hangfire;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using YANEDGE.EmailManagement.Domain.Services;
@@ -19,24 +20,26 @@ public class MailSendService : IMailSendService, ITransientDependency
     private readonly IMailSendTaskRepository _sendTaskRepository;
     private readonly IMailAccountRepository _mailAccountRepository;
     private readonly ILogger<MailSendService> _logger;
+    private readonly IBackgroundJobClient _backgroundJobClient;
 
     public MailSendService(
         IMailProtocolAdapter protocolAdapter,
         IMailSendTaskRepository sendTaskRepository,
         IMailAccountRepository mailAccountRepository,
-        ILogger<MailSendService> logger)
+        ILogger<MailSendService> logger,
+        IBackgroundJobClient backgroundJobClient)
     {
         _protocolAdapter = protocolAdapter;
         _sendTaskRepository = sendTaskRepository;
         _mailAccountRepository = mailAccountRepository;
         _logger = logger;
+        _backgroundJobClient = backgroundJobClient;
     }
 
     public Task QueueSendTaskAsync(MailSendTask sendTask)
     {
-        // 将发件任务加入队列
-        // 实际实现需要使用后台任务队列（如 Hangfire）
-        _logger.LogInformation("Queued send task {TaskId} for sending", sendTask.Id);
+        var backgroundJobId = _backgroundJobClient.Enqueue<IMailSendService>(service => service.ExecuteSendTaskAsync(sendTask.Id));
+        _logger.LogInformation("Queued send task {TaskId} for sending, background job {BackgroundJobId}", sendTask.Id, backgroundJobId);
         return Task.CompletedTask;
     }
 

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Hangfire;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -11,6 +12,8 @@ namespace YANEDGE.EmailManagement.Application.BackgroundJobs;
 /// <summary>
 /// 规则执行后台任务
 /// </summary>
+[DisableConcurrentExecution(timeoutInSeconds: 600)]
+[AutomaticRetry(Attempts = 0)]
 public class RuleExecutionJob : ITransientDependency
 {
     private readonly IMailMessageRepository _messageRepository;
@@ -54,18 +57,6 @@ public class RuleExecutionJob : ITransientDependency
         {
             using var uow = _unitOfWorkManager.Begin(requiresNew: true, isTransactional: false);
 
-            // 获取所有激活的规则
-            var activeRules = await _ruleRepository.GetActiveRulesOrderedByPriorityAsync();
-
-            if (!activeRules.Any())
-            {
-                _logger.LogInformation("[{JobName}] 没有激活的规则，跳过执行", JobName);
-                await uow.CompleteAsync();
-                return;
-            }
-
-            _logger.LogInformation("[{JobName}] 找到 {Count} 个激活的规则", JobName, activeRules.Count);
-
             // 获取最近未处理的邮件
             var cutoffTime = DateTime.UtcNow.AddHours(-LookbackHours);
             var recentMessages = await _messageRepository.GetListAsync();
@@ -94,10 +85,21 @@ public class RuleExecutionJob : ITransientDependency
                     _logger.LogDebug("[{JobName}] 开始处理邮件: {MessageId}, 主题: {Subject}",
                         JobName, message.Id, message.Subject);
 
-                    await _ruleMatchingService.ExecuteMatchingRulesAsync(activeRules, message);
+                    var applicableRules = await _ruleRepository.GetApplicableRulesForMailAccountAsync(message.MailAccountId);
+                    if (!applicableRules.Any())
+                    {
+                        _logger.LogDebug("[{JobName}] 邮件 {MessageId} 没有适用规则，跳过", JobName, message.Id);
+                        continue;
+                    }
+
+                    var results = await _ruleMatchingService.ExecuteMatchingRulesAsync(applicableRules, message);
+                    var matchedCount = results.Count(r => r.IsMatched);
+                    var failedRuleCount = results.Count(r => !r.IsSuccess);
+
                     processedCount++;
 
-                    _logger.LogDebug("[{JobName}] 邮件规则处理完成: {MessageId}", JobName, message.Id);
+                    _logger.LogDebug("[{JobName}] 邮件规则处理完成: {MessageId}, 规则数: {RuleCount}, 命中数: {MatchedCount}, 失败规则数: {FailedRuleCount}",
+                        JobName, message.Id, applicableRules.Count, matchedCount, failedRuleCount);
                 }
                 catch (OperationCanceledException)
                 {

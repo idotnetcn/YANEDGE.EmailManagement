@@ -129,7 +129,16 @@ public class MailComposeAppService : ApplicationService, IMailComposeAppService
             }
         }
 
-        sendTask.StartSending();
+        if (sendTask.Status == Enums.SendTaskStatus.Draft)
+        {
+            if (sendTask.NeedApproval)
+            {
+                throw new Volo.Abp.BusinessException("SendTask:ApprovalRequired")
+                    .WithData("SendTaskId", id);
+            }
+
+            sendTask.ApprovalApproved();
+        }
 
         await _mailSendTaskRepository.UpdateAsync(sendTask);
 

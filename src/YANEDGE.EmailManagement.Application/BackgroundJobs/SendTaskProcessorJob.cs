@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Hangfire;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -10,6 +11,8 @@ namespace YANEDGE.EmailManagement.Application.BackgroundJobs;
 /// <summary>
 /// 发件任务处理后台任务
 /// </summary>
+[DisableConcurrentExecution(timeoutInSeconds: 300)]
+[AutomaticRetry(Attempts = 0)]
 public class SendTaskProcessorJob : ITransientDependency
 {
     private readonly IMailSendTaskRepository _sendTaskRepository;

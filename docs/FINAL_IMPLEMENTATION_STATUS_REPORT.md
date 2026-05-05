@@ -242,13 +242,13 @@ GET    /api/mail-management/v1/approvals/{id}
 
 ### 5.1 P0 - 必须完成（启动前）
 
-#### ⚠️ 1. MailSyncService完善
-**当前状态**: 简单stub实现
-**需要补充**:
-- [ ] 实现真实的后台任务触发逻辑
-- [ ] 与Hangfire集成，使用`BackgroundJob.Enqueue`
-- [ ] 添加任务状态跟踪和错误处理
-- [ ] 实现并发控制（同一邮箱不重复同步）
+#### ✅ 1. MailSyncService完善
+**当前状态**: 已完成基于Hangfire的异步触发与状态跟踪
+**已完成**:
+- [x] 实现真实的后台任务触发逻辑
+- [x] 与Hangfire集成，使用后台任务入队
+- [x] 添加任务状态跟踪和错误处理
+- [x] 实现并发控制（同一邮箱不重复同步）
 
 **参考代码位置**: `/src/YANEDGE.EmailManagement.Domain/Services/Implementation/MailSyncService.cs:21-33`
 
@@ -268,20 +268,23 @@ GET    /api/mail-management/v1/approvals/{id}
 ### 5.2 P1 - 建议完成（上线前）
 
 #### 🔸 4. MailSyncJob、SendTaskProcessorJob完善
-**当前状态**: 骨架实现，调用stub服务
-**需要补充**:
-- [ ] MailSyncJob: 完善错误重试、日志记录
-- [ ] SendTaskProcessorJob: 完善SMTP发送调用、状态更新、失败处理
-- [ ] RuleExecutionJob: 完善规则匹配和执行逻辑
-- [ ] FailedTaskRetryJob: 实现失败任务重试策略
+**当前状态**: 核心流程已补强，剩余可继续做策略级增强
+**已完成/待增强**:
+- [x] MailSyncJob: 增加Hangfire并发控制、结果感知日志记录
+- [x] SendTaskProcessorJob: 对接真实后台发送入队链路
+- [x] RuleExecutionJob: 按邮箱匹配适用规则并增强执行日志
+- [x] FailedTaskRetryJob: 实现失败任务重试状态回退与执行
+- [ ] MailSyncJob: 可继续增加更细粒度重试策略
+- [ ] SendTaskProcessorJob: 发送收件人/附件明细仍待补充
 
 #### 🔸 5. 认证授权
-**当前状态**: ABP框架支持，未配置实际认证
-**需要补充**:
-- [ ] 集成IdentityServer或外部OAuth2提供商
-- [ ] 配置JWT Token生成和验证
-- [ ] 配置权限策略（已有权限定义）
-- [ ] Hangfire Dashboard认证策略（生产环境）
+**当前状态**: 已完成JWT Bearer基础接入与生产鉴权骨架，外部IdP联调待环境接入
+**已完成/待增强**:
+- [x] 配置JWT Token生成和验证
+- [x] 配置权限策略接入（基于JWT权限声明）
+- [x] Hangfire Dashboard认证策略（生产环境）
+- [x] 提供开发环境令牌签发端点用于联调
+- [ ] 集成IdentityServer或外部OAuth2提供商并完成联调
 
 #### 🔸 6. 测试
 - [ ] 单元测试（已有测试项目框架）

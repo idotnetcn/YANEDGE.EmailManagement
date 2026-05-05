@@ -1,10 +1,13 @@
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.Text;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Serilog;
@@ -14,6 +17,7 @@ using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using YANEDGE.EmailManagement.Application.BackgroundJobs;
+using YANEDGE.EmailManagement.Authentication;
 using YANEDGE.EmailManagement.EntityFrameworkCore;
 using YANEDGE.EmailManagement.Middleware;
 using YANEDGE.EmailManagement.Services.Implementation;
@@ -45,6 +49,49 @@ public class EmailManagementHttpApiHostModule : AbpModule
         ConfigureHealthChecks(context, configuration);
         ConfigureOpenTelemetry(context, configuration, hostingEnvironment);
         ConfigureSecurity(context, configuration);
+        ConfigureAuthentication(context, configuration);
+    }
+
+    private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        var authSection = configuration.GetSection(JwtAuthOptions.SectionName);
+        context.Services.Configure<JwtAuthOptions>(authSection);
+
+        var authOptions = authSection.Get<JwtAuthOptions>() ?? new JwtAuthOptions();
+        var authenticationBuilder = context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+
+        authenticationBuilder.AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = authOptions.RequireHttpsMetadata;
+            options.SaveToken = true;
+
+            if (!string.IsNullOrWhiteSpace(authOptions.Authority))
+            {
+                options.Authority = authOptions.Authority;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = authOptions.ValidateIssuer,
+                    ValidateAudience = authOptions.ValidateAudience,
+                    ValidAudience = authOptions.Audience,
+                    ValidateLifetime = authOptions.ValidateLifetime,
+                    ClockSkew = TimeSpan.FromSeconds(authOptions.ClockSkewSeconds)
+                };
+            }
+            else
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = authOptions.ValidateIssuer,
+                    ValidIssuer = authOptions.Issuer,
+                    ValidateAudience = authOptions.ValidateAudience,
+                    ValidAudience = authOptions.Audience,
+                    ValidateIssuerSigningKey = authOptions.ValidateIssuerSigningKey,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.SigningKey)),
+                    ValidateLifetime = authOptions.ValidateLifetime,
+                    ClockSkew = TimeSpan.FromSeconds(authOptions.ClockSkewSeconds)
+                };
+            }
+        });
     }
 
     private void ConfigureCaching(ServiceConfigurationContext context, IConfiguration configuration)
@@ -113,6 +160,16 @@ public class EmailManagementHttpApiHostModule : AbpModule
                     Name = "YANEDGE Team",
                     Email = "support@yanedge.com"
                 }
+            });
+
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Description = "Input a valid JWT bearer token."
             });
 
             options.DocInclusionPredicate((docName, description) => true);
@@ -259,6 +316,8 @@ public class EmailManagementHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseCors();
         app.UseAbpSerilogEnrichers();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         // 健康检查端点
         app.UseEndpoints(endpoints =>
@@ -365,6 +424,7 @@ public class HangfireDashboardAuthorizationFilter : IDashboardAuthorizationFilte
         // 生产环境需要认证且具有管理员角色
         var user = httpContext.User;
         return user.Identity?.IsAuthenticated == true &&
-               (user.IsInRole("admin") || user.IsInRole("Admin"));
+               ((user.IsInRole("admin") || user.IsInRole("Admin"))
+                || user.HasClaim(EmailManagementClaimTypes.Permission, YANEDGE.EmailManagement.Permissions.EmailManagementPermissions.Integration.Manage));
     }
 }
