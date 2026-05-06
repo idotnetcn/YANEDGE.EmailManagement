@@ -12,6 +12,7 @@ using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
+using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Modularity;
@@ -56,6 +57,11 @@ public class EmailManagementHttpApiHostModule : AbpModule
     {
         var authSection = configuration.GetSection(JwtAuthOptions.SectionName);
         context.Services.Configure<JwtAuthOptions>(authSection);
+
+        Configure<AbpPermissionOptions>(options =>
+        {
+            options.ValueProviders.Add<JwtPermissionValueProvider>();
+        });
 
         var authOptions = authSection.Get<JwtAuthOptions>() ?? new JwtAuthOptions();
         var authenticationBuilder = context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);

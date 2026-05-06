@@ -17,11 +17,13 @@
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="Volo.Abp.TestBase" Version="10.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.7" />
     <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\YANEDGE.EmailManagement.Domain\YANEDGE.EmailManagement.Domain.csproj" />
+    <ProjectReference Include="..\..\src\YANEDGE.EmailManagement.HttpApi.Host\YANEDGE.EmailManagement.HttpApi.Host.csproj" />
   </ItemGroup>
 
 </Project>
